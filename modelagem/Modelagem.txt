@@ -1,1 +1,0 @@
-Esse txt é para servir de exemplo de um commit.
