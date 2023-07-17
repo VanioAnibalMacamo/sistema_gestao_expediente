@@ -331,10 +331,31 @@ return [
                             'url'  => 'tipo_expedienteIndex',
                             
                         ],
+
+                        
                     ],
+                    
+                    
                 ],
+                [
+                    'text'=> 'Estudante',
+                    'url'=> '#',
+                    'icon'=> 'fas fa-user-graduate',
+                    'submenu'=>[
+    
+                        [
+                        'text'=> 'Estudante',
+                        'url'=> 'Cadastro_Estudante',
+                    ],
+                   ],
+                  ],
+            
             ],
-        ],
+            
+                   
+               
+           
+          ],
 
         
        
