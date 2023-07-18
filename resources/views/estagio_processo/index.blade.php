@@ -44,21 +44,22 @@
                       <td>{{ $estagioProcesso->descricao}}</td>
                       <td>{{ $estagioProcesso->tempo_estimado_conclusao}}</td>
                       <td>
-                        @if($estagioProcesso->estagioProcessoFilho)
-                            {{ $estagioProcesso->estagioProcessoFilho->nome }}
+                        @if ($estagioProcesso->estagioProcessoFilho)
+                            <span class="badge bg-success">{{ $estagioProcesso->estagioProcessoFilho->nome }}</span>
                         @else
-                            Nenhum estágio sucessor encontrado
+                            <span class="badge bg-danger">Nenhum estágio sucessor encontrado</span>
                         @endif
                     </td>
+
                       <td>
                             <!-- Large modal -->
-                            <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_departamento',$estagioProcesso->id)}}"><i class="fas fa-eye"></i></a>
+                            <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_est_processo',$estagioProcesso->id)}}"><i class="fas fa-eye"></i></a>
                             <a class="btn btn-info btn-sm d-inline"  href="{{url('update_est_processo',$estagioProcesso->id)}}"> <i class="fas fa-pencil-alt"></i></a>
 
                             <form id="form-excluir-{{ $estagioProcesso->id }}" action="{{ route('estagio_processos.delete', ['id' => $estagioProcesso->id]) }}" method="POST" class="d-inline">
                                   @csrf
                                   @method('DELETE')
-                                  <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event, 'O Estagio do Processo' + '{{ $estagioProcesso->nome }}', {{ $estagioProcesso->id }})"><i class="fas fa-trash"></i></button>
+                                  <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event, 'O Estagio do Processo ' + '{{ $estagioProcesso->nome }}', {{ $estagioProcesso->id }})"><i class="fas fa-trash"></i></button>
 
                             </form>
 
