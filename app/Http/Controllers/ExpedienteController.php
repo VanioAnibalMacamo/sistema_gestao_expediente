@@ -38,4 +38,15 @@ class ExpedienteController extends Controller
 
         return redirect('/expedienteIndex')->with('mensagem', 'Expediente salvo com sucesso.');
     }
+
+
+
+
+    public function delete($id)
+    {
+        $expediente = Expediente::find($id);
+        $expediente->delete();
+
+        return redirect()->route('expedienteIndex')->with('successDelete', 'Expediente Excluido com Sucesso!');
+    }
 }
