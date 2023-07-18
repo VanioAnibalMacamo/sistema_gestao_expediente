@@ -8,5 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class EstagioProcesso extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome','descricao','tempo_estimado_conclusao'];
+
+    protected $fillable = ['nome', 'descricao', 'tempo_estimado_conclusao'];
+
+    public function estagioProcessoPai()
+    {
+        return $this->belongsTo(EstagioProcesso::class, 'parent_estagio_processo_id');
+    }
+
+    public function estagioProcessoFilho()
+    {
+        return $this->hasOne(EstagioProcesso::class, 'parent_estagio_processo_id');
+    }
 }
