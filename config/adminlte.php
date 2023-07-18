@@ -320,6 +320,11 @@ return [
             'icon' => 'fas fa-user-tie',
         ],
         [
+            'text'=> 'Estudantes',
+            'url'=> 'estudanteIndex',
+            'icon'=> 'fas fa-user-graduate',
+        ],
+        [
             'text' => 'Departamentos',
             'url'  => 'depIndex',
             'icon' => 'fas fa-sitemap',
