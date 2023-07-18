@@ -320,6 +320,11 @@ return [
             'url'  => 'depIndex',
             'icon' => 'fas fa-sitemap',
         ],
+        [
+            'text' => 'Estagio do Processo',
+            'url'  => 'est_proIndex',
+            'icon' => 'fas fa-sliders-h',
+        ],
 
         [
             'text'    => 'Parametrização',
