@@ -21,26 +21,27 @@ public function update_view($id){
     return view('/estudante/edit', compact('estudante'));
 }
 public function create()
-    {
-        return view('estudante.create');
-    }
+{
+    return view('estudante.create');
+}
 
-    public function saveEstudante(Request $request){
+public function saveEstudante(Request $request)
+{
 
-        $estudante = new Estudante();
+    $estudante = new Estudante();
 
-        $estudante->nome=$request->nome;
-        $estudante->apelido=$request->apelido;
-        $estudante->curso->$request->curso;
-        $estudante->codigo->$request->codigo;
-        $estudante->contacto->$request->contacto;
-        $estudante->morada->request->morada;
+        $estudante->nome = $request->nome;
+        $estudante->apeido = $request->apelido;
+        $estudante->curso = $request->curso;
+        $estudante->codigo = $request->codigo;
+        $estudante->contacto = $request->contacto;
+        $estudante->morada = $request->morada;
 
         $estudante->save();
 
         return redirect()->route('estudanteIndex')->with('mensagem', 'estudate Cadastrado com sucesso!');
 
-    }
+}
 
     public function visualizar_view($id){
         $estudante = Estudante :: find($id);

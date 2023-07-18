@@ -59,10 +59,10 @@ Route::post('/visualizarExpediente/{id}',[App\Http\Controllers\ExpedienteControl
 Route::delete('/expediente/{id}', 'App\Http\Controllers\ExpedienteController@delete')->name('expedientes.delete');
 
 Route::get('/estudanteIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('EstudanteIndex');
-route::get('/estudanteCreate',[app\Http\Controller\EstudanteController::class,'create'])->name('estudanteCreate');
+route::get('/estudanteCreate',[App\Http\Controllers\EstudanteController::class,'create'])->name('estudanteCreate');
 Route::post('/saveEstudante',[App\Http\Controllers\EstudanteController::class,'saveEstudante'])->middleware('web');
 Route::get('/update_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'update_view']);
-route::post('/updateEstudante/{id}',[app\Http\Controller\EstudanteController::class,'update']);
+route::post('/updateEstudante/{id}',[App\Http\Controllers\EstudanteController::class,'update']);
 Route::get('/visualizar_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar_view']);
 Route::post('/visualizEstdante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar']);
 Route::delete('/estudante/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('estudante.delete');
