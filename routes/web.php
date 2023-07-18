@@ -32,3 +32,13 @@ Route::delete('/tipo_expediente/{id}', 'App\Http\Controllers\TipoExpedienteContr
 Route::get('Cadastro_Estudante', [App\Http\Controllers\CadastroEstudanteController::class, 'index'])->name('Cadastro_Estudante');
 
 
+Route::get('/depIndex', [App\Http\Controllers\DepartamentoController::class, 'index'])->name('depIndex');
+Route::get('/depCreate', [App\Http\Controllers\DepartamentoController::class, 'create'])->name('depCreate');
+Route::post('/saveDep',[App\Http\Controllers\DepartamentoController::class,'saveDep'])->middleware('web');
+Route::get('/update_departamento/{id}',[App\Http\Controllers\DepartamentoController::class,'update_view']);
+Route::post('/updateDep/{id}',[App\Http\Controllers\DepartamentoController::class,'update']);
+Route::get('/visualizar_departamento/{id}',[App\Http\Controllers\DepartamentoController::class,'visualizar_view']);
+Route::post('/visualizarDep/{id}',[App\Http\Controllers\DepartamentoController::class,'visualizar']);
+Route::delete('/departamento/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('departamentos.delete');
+
+
