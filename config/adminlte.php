@@ -304,7 +304,11 @@ return [
         ],
 
         ['header' => 'account_settings'],
-
+        [
+            'text' => 'Expedientes',
+            'url'  => 'expedienteIndex',
+            'icon' => 'fas fa-clipboard-list',
+        ],
         [
             'text' => 'Users',
             'url'  => 'userIndex',
