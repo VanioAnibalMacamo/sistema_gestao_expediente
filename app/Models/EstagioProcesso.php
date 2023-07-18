@@ -20,4 +20,13 @@ class EstagioProcesso extends Model
     {
         return $this->hasOne(EstagioProcesso::class, 'parent_estagio_processo_id');
     }
+
+    public function getEstagiosDisponiveis()
+    {
+        // Obtém todos os estágios do processo que não são sucessores de outros estágios
+        $estagiosDisponiveis = EstagioProcesso::whereDoesntHave('estagioProcessoPai')->get();
+
+        return $estagiosDisponiveis;
+    }
+
 }
