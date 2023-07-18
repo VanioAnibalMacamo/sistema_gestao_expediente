@@ -49,4 +49,13 @@ Route::get('/visualizar_est_processo/{id}',[App\Http\Controllers\EstagioProcesso
 Route::post('/visualizarEstPro/{id}',[App\Http\Controllers\EstagioProcessoController::class,'visualizar']);
 Route::delete('/est_processo/{id}', 'App\Http\Controllers\EstagioProcessoController@delete')->name('estagio_processos.delete');
 
+Route::get('/expedienteIndex', [App\Http\Controllers\ExpedienteController::class, 'index'])->name('expedienteIndex');
+Route::get('/expedienteCreate', [App\Http\Controllers\ExpedienteController::class, 'create'])->name('expedienteCreate');
+Route::post('/saveExpediente',[App\Http\Controllers\ExpedienteController::class,'saveExpediente'])->middleware('web');
+Route::get('/update_expediente/{id}',[App\Http\Controllers\ExpedienteController::class,'update_view']);
+Route::post('/updateExpediente/{id}',[App\Http\Controllers\ExpedienteController::class,'update']);
+Route::get('/visualizar_expediente/{id}',[App\Http\Controllers\ExpedienteController::class,'visualizar_view']);
+Route::post('/visualizarExpediente/{id}',[App\Http\Controllers\ExpedienteController::class,'visualizar']);
+Route::delete('/expediente/{id}', 'App\Http\Controllers\ExpedienteController@delete')->name('expedientes.delete');
+
 
