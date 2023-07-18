@@ -14,8 +14,12 @@ class AddTipoExpedienteIdToExpedientes extends Migration
     public function up()
     {
         Schema::table('expedientes', function (Blueprint $table) {
-            $table->unsignedBigInteger('tipo_expediente_id');
-            $table->foreign('tipo_expediente_id')->references('id')->on('tipo_expedientes');
+            $table->unsignedBigInteger('tipo_expediente_id')->after('data_submissao');
+
+            $table->foreign('tipo_expediente_id')
+                ->references('id')
+                ->on('tipo_expedientes')
+                ->onDelete('cascade');
         });
     }
 
