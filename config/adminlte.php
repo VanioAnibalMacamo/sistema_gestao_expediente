@@ -291,7 +291,7 @@ return [
 
     'menu' => [
         // Navbar items:
-       
+
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
@@ -302,9 +302,9 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-       
+
         ['header' => 'account_settings'],
-       
+
         [
             'text' => 'Users',
             'url'  => 'userIndex',
@@ -313,13 +313,18 @@ return [
         [
             'text' => 'Funcionários',
             'url'  => 'funcIndex',
-            'icon' => 'fas fa-user-tie',   
+            'icon' => 'fas fa-user-tie',
+        ],
+        [
+            'text' => 'Departamentos',
+            'url'  => 'depIndex',
+            'icon' => 'fas fa-sitemap',
         ],
 
         [
             'text'    => 'Parametrização',
             'icon'    => 'fas fa-cog',
-           
+
             'submenu' => [
                 [
                     'text'    => 'Expedientes',
@@ -329,36 +334,36 @@ return [
                         [
                             'text' => 'Tipo Expediente',
                             'url'  => 'tipo_expedienteIndex',
-                            
+
                         ],
 
-                        
+
                     ],
-                    
-                    
+
+
                 ],
                 [
                     'text'=> 'Estudante',
                     'url'=> '#',
                     'icon'=> 'fas fa-user-graduate',
                     'submenu'=>[
-    
+
                         [
                         'text'=> 'Estudante',
                         'url'=> 'Cadastro_Estudante',
                     ],
                    ],
                   ],
-            
+
             ],
-            
-                   
-               
-           
+
+
+
+
           ],
 
-        
-       
+
+
     ],
 
     /*
