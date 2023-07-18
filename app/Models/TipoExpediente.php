@@ -10,4 +10,9 @@ class TipoExpediente extends Model
     use HasFactory;
 
     protected $fillable = ['nome', 'descricao'];
+
+    public function expedientes()
+    {
+        return $this->hasMany(Expediente::class);
+    }
 }
