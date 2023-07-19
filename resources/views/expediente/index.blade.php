@@ -29,6 +29,7 @@
                         <th>Descrição</th>
                         <th>Data de Submissão</th>
                         <th>Tipo Expediente </th>
+                        <th>Estágio do Processo</th>
                         <th>Ações</th> <!-- Nova coluna para as ações -->
                     </tr>
                 </thead>
@@ -40,6 +41,7 @@
                             <td>{{ $expediente->descricao }}</td>
                             <td>{{ $expediente->data_submissao }}</td>
                             <td>{{ $expediente->tipoExpediente->nome }}</td>
+                            <td>{{ $expediente->estagioProcesso->nome }}</td>
                             <td>
                                 <!-- Actions -->
                                 <a href="{{ url('visualizar_expediente', $expediente->id) }}" class="btn btn-primary btn-sm d-inline">
