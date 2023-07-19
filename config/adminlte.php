@@ -305,19 +305,9 @@ return [
 
         ['header' => 'account_settings'],
         [
-            'text' => 'Expedientes',
-            'url'  => 'expedienteIndex',
-            'icon' => 'fas fa-clipboard-list',
-        ],
-        [
             'text' => 'Users',
             'url'  => 'userIndex',
             'icon' => 'fas fa-regular fa-users',
-        ],
-        [
-            'text' => 'Funcionários',
-            'url'  => 'funcIndex',
-            'icon' => 'fas fa-user-tie',
         ],
         [
             'text'=> 'Estudantes',
@@ -325,10 +315,21 @@ return [
             'icon'=> 'fas fa-user-graduate',
         ],
         [
+            'text' => 'Funcionários',
+            'url'  => 'funcIndex',
+            'icon' => 'fas fa-user-tie',
+        ],
+        [
             'text' => 'Departamentos',
             'url'  => 'depIndex',
             'icon' => 'fas fa-sitemap',
         ],
+        [
+            'text' => 'Expedientes',
+            'url'  => 'expedienteIndex',
+            'icon' => 'fas fa-clipboard-list',
+        ],
+
         [
             'text' => 'Estagio do Processo',
             'url'  => 'est_proIndex',
@@ -356,18 +357,6 @@ return [
 
 
                 ],
-                [
-                    'text'=> 'Estudante',
-                    'url'=> '#',
-                    'icon'=> 'fas fa-user-graduate',
-                    'submenu'=>[
-
-                        [
-                        'text'=> 'Estudante',
-                        'url'=> 'Cadastro_Estudante',
-                    ],
-                   ],
-                  ],
 
             ],
 
