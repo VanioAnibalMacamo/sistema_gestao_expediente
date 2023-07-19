@@ -58,7 +58,7 @@ Route::get('/visualizar_expediente/{id}',[App\Http\Controllers\ExpedienteControl
 Route::post('/visualizarExpediente/{id}',[App\Http\Controllers\ExpedienteController::class,'visualizar']);
 Route::delete('/expediente/{id}', 'App\Http\Controllers\ExpedienteController@delete')->name('expedientes.delete');
 
-Route::get('/estudanteIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('EstudanteIndex');
+Route::get('/estudanteIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('estudanteIndex');
 route::get('/estudanteCreate',[App\Http\Controllers\EstudanteController::class,'create'])->name('estudanteCreate');
 Route::post('/saveEstudante',[App\Http\Controllers\EstudanteController::class,'saveEstudante'])->middleware('web');
 Route::get('/update_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'update_view']);
