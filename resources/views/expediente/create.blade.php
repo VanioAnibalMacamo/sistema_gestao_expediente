@@ -42,10 +42,13 @@
                         <div class="form-group">
                             <label for="tipo_expediente_id">Tipo de Expediente</label>
                             <select class="form-control" id="tipo_expediente_id" name="tipo_expediente_id">
+                                <option value="">Selecione O Tipo de Expediente</option> <!-- Added "Select" option -->
+
                                 @foreach ($tiposExpediente as $tipoExpediente)
                                     <option value="{{ $tipoExpediente->id }}">{{ $tipoExpediente->nome }}</option>
                                 @endforeach
                             </select>
+
                         </div>
                     </div>
                 </div>
