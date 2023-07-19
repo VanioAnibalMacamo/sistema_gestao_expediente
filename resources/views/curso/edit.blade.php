@@ -24,7 +24,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Sigla</label>
-            <input type="text" class="form-control" id="apelido" name='apelido' value="{{ $curso->apelido }}" placeholder="Sigla do curso, Ex: GRH">
+            <input type="text" class="form-control" id="sigla" name='sigla' value="{{ $curso->sigla }}" placeholder="Sigla do curso, Ex: GRH">
             </div>
 
         </div>

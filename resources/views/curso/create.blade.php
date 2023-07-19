@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword4">Sigla</label>
-                        <input type="text" class="form-control" id="sigla" name='sigala' placeholder="Sigala do curso">
+                        <input type="text" class="form-control" id="sigla" name='sigla' placeholder="Sigala do curso">
                         </div>
                     </div>
                     
