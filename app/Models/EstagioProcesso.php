@@ -11,6 +11,11 @@ class EstagioProcesso extends Model
 
     protected $fillable = ['nome', 'descricao', 'tempo_estimado_conclusao'];
 
+    public function expedientes()
+    {
+        return $this->hasMany(Expediente::class);
+    }
+
     public function estagioProcessoPai()
     {
         return $this->belongsTo(EstagioProcesso::class, 'parent_estagio_processo_id');

@@ -16,4 +16,9 @@ class Expediente extends Model
         return $this->belongsTo(TipoExpediente::class);
     }
 
+    public function estagioProcesso()
+    {
+        return $this->belongsTo(EstagioProcesso::class);
+    }
+
 }
