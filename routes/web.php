@@ -68,3 +68,10 @@ Route::post('/visualizEstdante/{id}',[App\Http\Controllers\EstudanteController::
 Route::delete('/estudante/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('estudantes.delete');
 
 Route::get('/cursoIndex', [App\Http\Controllers\CursoController::class, 'index'])->name('cursoIndex');
+route::get('/CursoCreate',[App\Http\Controllers\CursoController::class,'create'])->name('cursoeCreate');
+Route::post('/saveCurso',[App\Http\Controllers\CursoController::class,'saveCurso'])->middleware('web');
+Route::get('/update_Curso/{id}',[App\Http\Controllers\CursoController::class,'update_view']);
+route::get('/cursoCreate',[App\Http\Controllers\CursoController::class,'create'])->name('cursoCreate');
+Route::get('/visualizar_Curso/{id}',[App\Http\Controllers\CursoController::class,'visualizar_view']);
+Route::post('/visualizCurso/{id}',[App\Http\Controllers\CursoController::class,'visualizar']);
+Route::delete('/curso/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('cursos.delete');
