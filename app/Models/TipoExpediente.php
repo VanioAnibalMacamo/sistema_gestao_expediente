@@ -21,4 +21,9 @@ class TipoExpediente extends Model
         return $this->belongsTo(Departamento::class);
     }
 
+    public function estagiosProcesso()
+    {
+        return $this->belongsToMany(EstagioProcesso::class, 'estagio_processo_tipo_expediente');
+    }
+
 }

@@ -34,4 +34,9 @@ class EstagioProcesso extends Model
         return $estagiosDisponiveis;
     }
 
+    public function tipoExpedientes()
+    {
+        return $this->belongsToMany(TipoExpediente::class, 'estagio_processo_tipo_expediente');
+    }
+
 }
