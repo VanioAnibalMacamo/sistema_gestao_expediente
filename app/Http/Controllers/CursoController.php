@@ -13,11 +13,57 @@ public function index(){
 
 
     $cursos = Curso:: paginate(8);
-    return view('departamento.index',['departamentos' => $departamentos]);
+    return view('curso.index',['cursos' => $cursos]);
 }
 
+public function update_view($id){
+    $curso = curso:: find($id);
+    return view('/curso/edit', compact('curso'));
+}
+public function create()
+{
+    return view('curso.create');
+}
+
+public function savecurso(Request $request)
+{
+
+    $curso = new curso();
+
+        $curso->nome = $request->nome;
+        $curso->apeido = $request->apelido;
+       
+        $curso->save();
+
+        return redirect()->route('cursoIndex')->with('mensagem', 'curso Cadastrado com sucesso!');
+
+}
+
+public function update(Request $request, $id){
+
+    $curso =  Curso:: find($id);
+    $curso->nome=$request->nome;
+    $curso->sigla=$request->sigla;
+    
+
+    $curso->save();
+
+    return redirect()->route('cursoIndex')->with('mensagem', 'curso Actualizado com sucesso!');
+}
+
+public function visualizar_view($id){
+    $curso = curso :: find($id);
+    return view('/curso/view', compact('curso'));
+
+}
+public function delete($id)
+{
 
 
+    $curso = curso::find($id);
+    $curso->delete();
 
+    return redirect()->route('depIndex')->with('successDelete', 'Curso Excluido com Sucesso!');
+}
 
 }
