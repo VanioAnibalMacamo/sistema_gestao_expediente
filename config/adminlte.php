@@ -315,6 +315,11 @@ return [
             'icon'=> 'fas fa-user-graduate',
         ],
         [
+            'text'=> 'Cursos',
+            'url'=> 'cursoIndex',
+            'icon'=> 'fa-solid fa-graduation-cap', 
+        ],
+        [
             'text' => 'Funcionários',
             'url'  => 'funcIndex',
             'icon' => 'fas fa-user-tie',
