@@ -31,7 +31,7 @@ public function savecurso(Request $request)
     $curso = new curso();
 
         $curso->nome = $request->nome;
-        $curso->apeido = $request->apelido;
+        $curso->sigla = $request->sigla;
        
         $curso->save();
 
@@ -63,7 +63,7 @@ public function delete($id)
     $curso = curso::find($id);
     $curso->delete();
 
-    return redirect()->route('depIndex')->with('successDelete', 'Curso Excluido com Sucesso!');
+    return redirect()->route('cursoIndex')->with('successDelete', 'Curso Excluido com Sucesso!');
 }
 
 }
