@@ -1,4 +1,4 @@
-@extends ('admiblte::page')
+@extends ('adminlte::page')
 @section('title','Dashboard' )
 @section('content_header')
 
@@ -17,7 +17,7 @@
     <form action="{{url('updateEstudante',$estudante->id)}}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="card-body">
-      <div class="form-row">
+      <div class="form-group">
           <div class="form-group col-md-6">
               <label for="inputAddress">Nome</label>
               <input type="text" class="form-control" id="nome" name='nome' value="{{ $estudante->nome }}" placeholder="Digite o nome do Estudante...">
