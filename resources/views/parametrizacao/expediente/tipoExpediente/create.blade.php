@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1> Cadastrar Tipo de Expediente</h1>
-      
+
 @stop
 
 @section('content')
@@ -26,8 +26,19 @@
                         <label for="inputAddress">Descrição</label>
                         <input type="text" class="form-control" id="nome" name='descricao' placeholder="Digite a Descrição...">
                     </div>
-                   
-                   
+
+
+                    <div class="form-group col-md-4">
+                        <label for="departamento_id">Departamento</label>
+                        <select class="form-control" id="departamento_id" name="departamento_id">
+                            <option value="">Selecione um departamento</option>
+                            @foreach($departamentos as $departamento)
+                                <option value="{{ $departamento->id }}">{{ $departamento->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
                     <div class="card-footer">
                         <input type="submit" class="btn btn-primary" value='Salvar'>
                         <a  href="{{ url('/tipo_expedienteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>

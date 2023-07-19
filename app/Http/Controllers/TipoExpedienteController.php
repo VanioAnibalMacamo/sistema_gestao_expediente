@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TipoExpediente;
+use App\Models\Departamento;
 
 class TipoExpedienteController extends Controller
 {
@@ -13,13 +14,15 @@ class TipoExpedienteController extends Controller
     }
 
     public function update_view($id){
-        $tipoExpediente = TipoExpediente::find($id);
-        return view('/parametrizacao.expediente.tipoExpediente.edit', compact('tipoExpediente'));
+        $tipoExpediente = TipoExpediente::findOrFail($id);
+        $departamentos = Departamento::all();
+        return view('parametrizacao.expediente.tipoExpediente.edit', compact('tipoExpediente', 'departamentos'));
     }
 
     public function create()
     {
-        return view('parametrizacao.expediente.tipoExpediente.create');
+        $departamentos = Departamento::all();
+        return view('parametrizacao.expediente.tipoExpediente.create', compact('departamentos'));
     }
 
     public function saveTipoExpediente(Request $request){
@@ -28,11 +31,12 @@ class TipoExpedienteController extends Controller
 
         $tipoExpediente->nome=$request->nome;
         $tipoExpediente->descricao=$request->descricao;
+        $tipoExpediente->departamento_id = $request->departamento_id;
 
         $tipoExpediente->save();
 
         return redirect()->route('tipo_expedienteIndex')->with('mensagem', 'Tipo de Expediente Cadastrado com sucesso!');
-    
+
     }
 
     public function update(Request $request, $id){
@@ -41,16 +45,18 @@ class TipoExpedienteController extends Controller
 
         $tipoExpediente->nome=$request->nome;
         $tipoExpediente->descricao=$request->descricao;
+        $tipoExpediente->departamento_id = $request->departamento_id;
 
         $tipoExpediente->save();
 
         return redirect()->route('tipo_expedienteIndex')->with('mensagem', 'Tipo de Expediente Actualizado com sucesso!');
-    
+
     }
 
     public function visualizar_view($id){
-        $tipoExpediente = TipoExpediente::find($id);
-        return view('/parametrizacao.expediente.tipoExpediente.view', compact('tipoExpediente'));
+        $tipoExpediente = TipoExpediente::findOrFail($id);
+        $departamentos = Departamento::all();
+        return view('parametrizacao.expediente.tipoExpediente.view', compact('tipoExpediente', 'departamentos'));
     }
 
     public function delete($id){

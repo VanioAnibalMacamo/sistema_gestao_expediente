@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1> Visualizar Tipo de Expediente</h1>
-      
+
 @stop
 
 @section('content')
@@ -26,8 +26,18 @@
                         <label for="inputAddress">Descrição</label>
                         <input type="text" class="form-control" id="nome" name='descricao' value="{{ $tipoExpediente->descricao}}" placeholder="Digite a Descrição..." readOnly>
                     </div>
-                   
-                   
+
+                    <div class="form-group col-md-4">
+                        <label for="departamento_id">Departamento</label>
+                        <select class="form-control" id="departamento_id" name="departamento_id" disabled>
+                            <option value="">Selecione um departamento</option>
+                            @foreach($departamentos as $departamento)
+                                <option value="{{ $departamento->id }}" @if(old('departamento_id', $tipoExpediente->departamento_id) == $departamento->id) selected @endif>{{ $departamento->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
                     <div class="card-footer">
                         <a  href="{{ url('/tipo_expedienteIndex') }}" type="button" class="btn btn-warning">Voltar</a>
                     </div>

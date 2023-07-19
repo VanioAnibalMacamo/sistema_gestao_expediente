@@ -21,7 +21,7 @@
 </div>
 
 <div class="card">
-            
+
 
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -31,6 +31,7 @@
                       <th style="width: 10px">#</th>
                       <th>Nome</th>
                       <th>Descrição</th>
+                      <th>Departamento</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -39,11 +40,12 @@
                       <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $tipoExpediente->nome}}</td>
                       <td>{{ $tipoExpediente->descricao}}</td>
-                      <td> 
+                      <td>{{ $tipoExpediente->departamento->nome}}</td>
+                      <td>
                             <!-- Large modal -->
                             <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_tipo_expediente',$tipoExpediente->id)}}"><i class="fas fa-eye"></i></a>
                             <a class="btn btn-info btn-sm d-inline"  href="{{url('update_tipo_expediente',$tipoExpediente->id)}}"> <i class="fas fa-pencil-alt"></i></a>
-                           
+
                             <form id="form-excluir-{{ $tipoExpediente->id }}" action="{{ route('tipo_expedientes.delete', ['id' => $tipoExpediente->id]) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
@@ -58,7 +60,7 @@
                 </table>
                 {{ $tipoExpedientes->links('pagination::bootstrap-4') }}
               </div>
-            </div>      
+            </div>
 
 
 
