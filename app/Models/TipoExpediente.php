@@ -15,4 +15,10 @@ class TipoExpediente extends Model
     {
         return $this->hasMany(Expediente::class);
     }
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class);
+    }
+
 }
