@@ -45,7 +45,7 @@
                     <tr>
                       <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $estudante->nome}}</td>
-                      <td>{{ $estudante->apelido}}</td>
+                      <td>{{ $estudante->apeido}}</td>
                       <td>{{ $estudante->codigo}}</td>
                       <td>{{ $estudante->curso}}</td>
                       <td>{{ $estudante->contacto}}</td>
