@@ -17,7 +17,7 @@
     <form action="{{url('updateEstudante',$estudante->id)}}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="card-body">
-      <div class="form-group">
+      <div class="form-row">
           <div class="form-group col-md-6">
               <label for="inputAddress">Nome</label>
               <input type="text" class="form-control" id="nome" name='nome' value="{{ $estudante->nome }}" placeholder="Digite o nome do Estudante...">
@@ -28,29 +28,30 @@
             </div>
 
         </div>
-        <div>
+        
           <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputEmail4">Codigo</label>
-                <input type="text" class="form-control" id="codigo" name='codigo' value="{{ $estudante->codigo }}"placeholder="Codigo do estudante">
-                </div>
-                <div>
+              <label for="inputPassword4">Codigo</label>
+              <input type="text" class="form-control" id="codigo" name='codigo' value="{{ $estudante->codigo }}" placeholder="Codigo do estudante">
+              </div>
+  
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">curso</label>
                         <input type="text" class="form-control" id="curso" name='curso' value="{{ $estudante->codigo }}"placeholder="Curso do estudante">
                         </div>
 
                 </div>
-              </div>
+              
 
-        </div>
+        
 
           <div class="form-row">
 
             <div class="form-group col-md-6">
-                <label for="inputEmail4">Contacto</label>
-                <input type="text" class="form-control" id="contacto" name='contacto' value="{{ $estudante->contancto }}"placeholder="Contacto do estudante">
-                </div>
+              <label for="inputPassword4">Contacto</label>
+              <input type="text" class="form-control" id="contacto" name='contacto' value="{{ $estudante->contacto }}" placeholder="contacto do estudante">
+              </div>
+  
 
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Morada</label>
