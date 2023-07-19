@@ -35,7 +35,7 @@ public function saveEstudante(Request $request)
     $estudante = new Estudante();
 
         $estudante->nome = $request->nome;
-        $estudante->apelido = $request->apelido;
+        $estudante->apeido = $request->apelido;
         $estudante->curso = $request->curso;
         $estudante->codigo = $request->codigo;
         $estudante->contacto = $request->contacto;
@@ -46,6 +46,21 @@ public function saveEstudante(Request $request)
         return redirect()->route('estudanteIndex')->with('mensagem', 'estudate Cadastrado com sucesso!');
 
 }
+public function update(Request $request, $id){
+
+    $estudante =  Estudante:: find($id);
+    $estudante->nome=$request->nome;
+    $estudante->apeido=$request->apelido;
+    $estudante->curso=$request->curso;
+    $estudante->codigo=$request->codigo;
+    $estudante->contacto=$request->contacto;
+    $estudante->morada=$request->morada;
+
+    $estudante->save();
+
+    return redirect()->route('estudanteIndex')->with('mensagem', 'Estudante Actualizado com sucesso!');
+}
+
 
     public function visualizar_view($id){
         $estudante = Estudante :: find($id);

@@ -14,7 +14,7 @@
     </div>
    
 
-    <form action="{{url('updateEstu',$estudante->id)}}" method="POST" enctype="multipart/form-data">
+    <form action="{{url('updateEstudante',$estudante->id)}}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="card-body">
       <div class="form-row">
@@ -61,11 +61,11 @@
          
           <div class="card-footer">
               <input type="submit" class="btn btn-primary" value='Actualizar'>
-              <a  href="{{ url('/depIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
+              <a  href="{{ url('/estudanteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
           </div>
     </form>
   </div>
-  <!-- /.card -->
+
 @stop
 
 @section('css')
