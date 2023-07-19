@@ -6,13 +6,13 @@
 
 @stop
 
-@section('contente')
+@section('content')
 
 <div class="card card-primary">
     <div class="card-header">
       <h3 class="card-title">Dados do estudante</h3>
     </div>
-   
+
 
     <form action="{{url('updateEstudante',$estudante->id)}}" method="POST" enctype="multipart/form-data">
       @csrf
@@ -26,7 +26,7 @@
             <label for="inputPassword4">Apelido</label>
             <input type="text" class="form-control" id="apelido" name='apelido' value="{{ $estudante->apelido }}" placeholder="Apelido do estudante">
             </div>
-          
+
         </div>
         <div>
           <div class="form-row">
@@ -46,7 +46,7 @@
         </div>
 
           <div class="form-row">
-            
+
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Contacto</label>
                 <input type="text" class="form-control" id="contacto" name='contacto' value="{{ $estudante->contancto }}"placeholder="Contacto do estudante">
@@ -57,8 +57,8 @@
                     <input type="text" class="form-control" id="morada" name='morada' value="{{ $estudante->morada }}"placeholder="Morada do estudante">
                     </div>
           </div>
-         
-         
+
+
           <div class="card-footer">
               <input type="submit" class="btn btn-primary" value='Actualizar'>
               <a  href="{{ url('/estudanteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
