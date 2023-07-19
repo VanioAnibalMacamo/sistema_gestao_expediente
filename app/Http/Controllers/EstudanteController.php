@@ -2,8 +2,12 @@
 
 namespace App\http\Controllers;
 
-use Illuminate\http\Request;
+
+use Illuminate\Http\Request;
 use App\Models\Estudante;
+
+
+
 
 class  EstudanteController extends Controller{
 
@@ -31,7 +35,7 @@ public function saveEstudante(Request $request)
     $estudante = new Estudante();
 
         $estudante->nome = $request->nome;
-        $estudante->apeido = $request->apelido;
+        $estudante->apelido = $request->apelido;
         $estudante->curso = $request->curso;
         $estudante->codigo = $request->codigo;
         $estudante->contacto = $request->contacto;

@@ -65,6 +65,6 @@ Route::get('/update_estudante/{id}',[App\Http\Controllers\EstudanteController::c
 route::post('/updateEstudante/{id}',[App\Http\Controllers\EstudanteController::class,'update']);
 Route::get('/visualizar_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar_view']);
 Route::post('/visualizEstdante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar']);
-Route::delete('/estudante/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('estudante.delete');
+Route::delete('/estudante/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('estudantes.delete');
 
 
