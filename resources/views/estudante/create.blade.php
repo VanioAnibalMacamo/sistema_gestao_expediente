@@ -53,7 +53,7 @@
                    
                     <div class="card-footer">
                         <input type="submit" class="btn btn-primary" value='Salvar'>
-                        <a  href="{{ url('/depIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
+                        <a  href="{{ url('/EstudanteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
                     </div>
               </form>
             </div>
