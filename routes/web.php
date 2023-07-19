@@ -67,4 +67,4 @@ Route::get('/visualizar_estudante/{id}',[App\Http\Controllers\EstudanteControlle
 Route::post('/visualizEstdante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar']);
 Route::delete('/estudante/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('estudantes.delete');
 
-Route::get('/cursoIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('cursoIndex');
+Route::get('/cursoIndex', [App\Http\Controllers\CursoController::class, 'index'])->name('cursoIndex');
