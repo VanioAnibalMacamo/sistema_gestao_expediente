@@ -317,7 +317,7 @@ return [
         [
             'text'=> 'Cursos',
             'url'=> 'cursoIndex',
-            'icon'=> 'fa-solid fa-graduation-cap', 
+            'icon'=> 'fa-solid fa-graduation-cap',
         ],
         [
             'text' => 'Funcionários',
@@ -349,7 +349,8 @@ return [
                 [
                     'text'    => 'Expedientes',
                     'url'     => '#',
-                    'icon' => 'fas fa-id-card',
+                   // 'icon' => 'fas fa-id-card',
+                   'icon' => 'fas fa-clipboard-list',
                     'submenu' => [
                         [
                             'text' => 'Tipo Expediente',
@@ -362,7 +363,7 @@ return [
 
 
                 ],
-                
+
 
             ],
 
