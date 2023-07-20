@@ -340,10 +340,22 @@ return [
             'url'  => 'est_proIndex',
             'icon' => 'fas fa-sliders-h',
         ],
+        [
+            'text'    => 'Gestão',
+            'icon'    => 'fas fa-cogs',
+
+            'submenu' => [
+                [
+                    'text'    => 'Alocação de Funcionários aos Departamentos e Cargos',
+                    'url'     => 'funcDepCargoIndex',
+                    'icon' => 'fas fa-user-plus',
+                ],
+            ],
+        ],
 
         [
             'text'    => 'Parametrização',
-            'icon'    => 'fas fa-cog',
+            'icon'    => 'fas fa-tools',
 
             'submenu' => [
                 [
@@ -365,15 +377,8 @@ return [
                     'url'  => 'cargoIndex',
                     'icon' => 'fas fa-briefcase',
                 ],
-
-
-
             ],
-
-
-
-
-          ],
+        ],
 
 
 

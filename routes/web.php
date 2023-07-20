@@ -94,3 +94,8 @@ Route::post('/updateCargo/{id}', [App\Http\Controllers\CargoController::class, '
 Route::delete('/cargos/{id}', [CargoController::class, 'delete'])->name('cargos.delete');
 Route::get('/visualizar_cargo/{id}', [CargoController::class, 'visualizarView']);
 Route::post('/visualizarCargo/{id}', [CargoController::class, 'visualizar']);
+
+Route::get('/funcDepCargoIndex', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'index'])->name('funcDepCargoIndex');
+Route::get('/createAlocacao', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'create'])->name('createAlocacao');
+Route::get('/update_alocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update_view']);
+Route::delete('/alocacoes/{id}', 'App\Http\Controllers\FuncionarioDepartamentoCargoController@delete')->name('alocaoes.delete');
