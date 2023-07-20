@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1> Cadastrar Estudante</h1>
-      
+
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
               <div class="card-header">
                 <h3 class="card-title">Dados do estudante</h3>
               </div>
-             
+
               <form action="{{url('saveEstudante')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
@@ -27,7 +27,7 @@
                         <input type="text" class="form-control" id="apelido" name='apelido' placeholder="Apelido do Estudante">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
                         <label for="inputPassword4">Codigo</label>
@@ -49,11 +49,11 @@
                         </div>
                     </div>
 
-                   
-                   
+
+
                     <div class="card-footer">
                         <input type="submit" class="btn btn-primary" value='Salvar'>
-                        <a  href="{{ url('/EstudanteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
+                        <a  href="{{ url('/estudanteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
                     </div>
               </form>
             </div>
