@@ -4,6 +4,7 @@
 
 @section('content_header')
     <h1>Cadastrar Expediente</h1>
+
 @stop
 
 @section('content')
@@ -40,16 +41,29 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="tipo_expediente_id">Tipo de Expediente</label>
-                            <select class="form-control" id="tipo_expediente_id" name="tipo_expediente_id">
-                                <option value="">Selecione O Tipo de Expediente</option> <!-- Added "Select" option -->
+                            <label for="estudante_id">Estudante</label>
+                            <select class="form-control" id="estudante_id" name="estudante_id">
+                                <option value="">Selecione o Estudante</option> <!-- Adicionada opção "Select" -->
 
-                                @foreach ($tiposExpediente as $tipoExpediente)
-                                    <option value="{{ $tipoExpediente->id }}">{{ $tipoExpediente->nome }}</option>
+                                @foreach ($estudantes as $estudante)
+                                    <option value="{{  $estudante->id }}">{{ $estudante->codigo." - ".$estudante->nome." ".$estudante->apelido }}"</option>
                                 @endforeach
                             </select>
-
                         </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="tipo_expediente_id">Tipo de Expediente</label>
+                        <select class="form-control" id="tipo_expediente_id" name="tipo_expediente_id">
+                            <option value="">Selecione O Tipo de Expediente</option> <!-- Added "Select" option -->
+
+                            @foreach ($tiposExpediente as $tipoExpediente)
+                                <option value="{{ $tipoExpediente->id }}">{{ $tipoExpediente->nome }}</option>
+                            @endforeach
+                        </select>
+
                     </div>
                 </div>
             </div>

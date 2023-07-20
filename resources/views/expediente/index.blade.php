@@ -28,6 +28,7 @@
                         <th>Nome</th>
                         <th>Descrição</th>
                         <th>Data de Submissão</th>
+                        <th>Estudante</th>
                         <th>Tipo Expediente </th>
                         <th>Estágio do Processo</th>
                         <th>Ações</th> <!-- Nova coluna para as ações -->
@@ -40,6 +41,7 @@
                             <td>{{ $expediente->nome }}</td>
                             <td>{{ $expediente->descricao }}</td>
                             <td>{{ $expediente->data_submissao }}</td>
+                            <td>{{ $expediente->estudante->nome." ".$expediente->estudante->apelido }}</td>
                             <td>{{ $expediente->tipoExpediente->nome }}</td>
                             <td><span class="badge badge-primary">{{ $expediente->estagioProcesso->nome }}</span></td>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Expediente;
 use App\Models\TipoExpediente;
+use App\Models\Estudante;
 
 class ExpedienteController extends Controller
 {
@@ -17,7 +18,8 @@ class ExpedienteController extends Controller
     public function create()
     {
         $tiposExpediente = TipoExpediente::all();
-        return view('expediente.create', compact('tiposExpediente'));
+        $estudantes = Estudante::all();
+        return view('expediente.create', compact('tiposExpediente','estudantes'));
     }
 
     public function saveExpediente(Request $request)
@@ -27,6 +29,7 @@ class ExpedienteController extends Controller
             'descricao' => 'required',
             'data_submissao' => 'required',
             'tipo_expediente_id' => 'required',
+            'estudante_id' => 'required',
         ]);
 
         $expediente = new Expediente;
@@ -34,6 +37,15 @@ class ExpedienteController extends Controller
         $expediente->descricao = $request->descricao;
         $expediente->data_submissao = $request->data_submissao;
         $expediente->tipo_expediente_id = $request->tipo_expediente_id;
+        $expediente->estudante_id = $request->estudante_id;
+        // Encontre o Estágio de Processo sem pai
+        $tipoExpediente = TipoExpediente::find($request->tipo_expediente_id);
+        $estagioSemPai = $tipoExpediente->estagiosProcesso->whereNull('parent_id')->first();
+
+        if ($estagioSemPai) {
+            // Atribua o id do Estágio de Processo sem pai ao campo estagio_processo_id do Expediente
+            $expediente->estagio_processo_id = $estagioSemPai->id;
+        }
         $expediente->save();
 
         return redirect('/expedienteIndex')->with('mensagem', 'Expediente salvo com sucesso.');
@@ -51,8 +63,9 @@ class ExpedienteController extends Controller
     {
         $expediente = Expediente::find($id);
         $tiposExpediente = TipoExpediente::all();
+        $estudantes = Estudante::all();
 
-        return view('expediente.edit', compact('expediente', 'tiposExpediente'));
+        return view('expediente.edit', compact('expediente', 'tiposExpediente','estudantes'));
     }
 
     public function update(Request $request, $id)
@@ -61,7 +74,8 @@ class ExpedienteController extends Controller
         $expediente->nome = $request->input('nome');
         $expediente->descricao = $request->input('descricao');
         $expediente->data_submissao = $request->input('data_submissao');
-        $expediente->tipo_expediente_id = $request->input('tipo_expediente_id');
+       // $expediente->tipo_expediente_id = $request->input('tipo_expediente_id');
+        $expediente->estudante_id = $request->input('estudante_id');
         $expediente->save();
 
         return redirect('/expedienteIndex')->with('mensagem', 'Expediente actualizado com sucesso!');

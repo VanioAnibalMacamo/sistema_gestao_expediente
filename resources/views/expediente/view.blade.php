@@ -37,9 +37,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="tipo_expediente_id">Tipo de Expediente</label>
-                        <input type="text" class="form-control" id="tipo_expediente_id" name="tipo_expediente_id" value="{{ $expediente->tipoExpediente->nome }}" readonly>
+                        <label for="tipo_expediente_id">Estudante</label>
+                        <input type="text" class="form-control" id="estudante_id" name="estudante_id" value="{{ $expediente->estudante->codigo." - ".$expediente->estudante->nome." ".$expediente->estudante->apelido }}" readonly>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="tipo_expediente_id">Tipo de Expediente</label>
+                    <input type="text" class="form-control" id="tipo_expediente_id" name="tipo_expediente_id" value="{{ $expediente->tipoExpediente->nome }}" readonly>
                 </div>
             </div>
         </div>

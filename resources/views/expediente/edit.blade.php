@@ -40,15 +40,30 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="tipo_expediente_id">Tipo de Expediente</label>
-                            <select class="form-control" id="tipo_expediente_id" name="tipo_expediente_id">
-                                <option value="">Selecione O Tipo de Expediente</option> <!-- Added "Select" option -->
+                            <label for="tipo_expediente_id">Estudante</label>
+                            <select class="form-control" id="estudante_id" name="estudante_id">
+                                <option value="">Selecione O Estudante</option> <!-- Added "Select" option -->
 
-                                @foreach ($tiposExpediente as $tipoExpediente)
-                                    <option value="{{ $tipoExpediente->id }}" {{ $tipoExpediente->id == $expediente->tipo_expediente_id ? 'selected' : '' }}>{{ $tipoExpediente->nome }}</option>
+                                @foreach ($estudantes as $estudante)
+                                    <option value="{{ $estudante->id }}" {{ $estudante->id == $expediente->estudante_id ? 'selected' : '' }}>{{ $estudante->codigo." - ".$estudante->nome." ".$estudante->apelido }}</option>
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="tipo_expediente_id">Tipo de Expediente</label>
+                        <select class="form-control" id="tipo_expediente_id" name="tipo_expediente_id" disabled>
+                            <option value="">Selecione O Tipo de Expediente</option> <!-- Added "Select" option -->
+
+                            @foreach ($tiposExpediente as $tipoExpediente)
+                                <option value="{{ $tipoExpediente->id }}" {{ $tipoExpediente->id == $expediente->tipo_expediente_id ? 'selected' : '' }}>
+                                    {{ $tipoExpediente->nome }}
+                                </option>
+                             @endforeach
+
+                        </select>
                     </div>
                 </div>
             </div>
