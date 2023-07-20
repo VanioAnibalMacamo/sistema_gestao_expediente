@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TipoExpediente;
 use App\Models\Departamento;
 use App\Models\EstagioProcesso;
-
+use Illuminate\Validation\Rule;
 
 class TipoExpedienteController extends Controller
 {

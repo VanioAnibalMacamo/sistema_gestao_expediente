@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-        <!-- general form elements -->
+
     <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Dados do Tipo de Expediente</h3>
@@ -51,6 +51,9 @@
                             @endforeach
                         </div>
                     </div>
+                    <div class="info-message">
+                        Selecione pelo menos um Estágio de Processo.
+                    </div>
 
                     <div class="card-footer">
                         <input type="submit" class="btn btn-primary" value='Actualizar'>
@@ -64,8 +67,51 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .info-message {
+            font-size: 12px;
+            color: #dc3545; /* Cor vermelha, você pode alterar conforme necessário */
+            margin-top: 5px; /* Espaçamento entre a mensagem e os checkboxes */
+        }
+    </style>
 @stop
 
 @section('js')
     <script> console.log('Hi!'); </script>
+    <!-- Adicione o script do select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Inicializa o select2 no campo de seleção
+            $('.select2').select2();
+
+            // Função para mostrar ou ocultar a mensagem informativa
+            function toggleInfoMessage() {
+                if ($('input[name="estagios_processo[]"]:checked').length === 0) {
+                    $('.info-message').show(); // Mostra a mensagem informativa
+                } else {
+                    $('.info-message').hide(); // Oculta a mensagem informativa
+                }
+            }
+
+            // Chama a função toggleInfoMessage no carregamento da página
+            toggleInfoMessage();
+
+            // Adicione a validação personalizada
+            $('form').submit(function(event) {
+                if ($('input[name="estagios_processo[]"]:checked').length === 0) {
+                    event.preventDefault(); // Impede o envio do formulário
+                    $('.info-message').show(); // Mostra a mensagem informativa
+                } else {
+                    $('.info-message').hide(); // Oculta a mensagem informativa se há checkboxes selecionados
+                }
+            });
+
+            // Adicione um evento de clique para os checkboxes
+            $('input[name="estagios_processo[]"]').click(function() {
+                toggleInfoMessage();
+            });
+        });
+    </script>
 @stop
