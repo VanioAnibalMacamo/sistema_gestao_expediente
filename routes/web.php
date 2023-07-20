@@ -75,3 +75,12 @@ route::post('/updateCurso/{id}',[App\Http\Controllers\CursoController::class,'up
 Route::get('/visualizar_Curso/{id}',[App\Http\Controllers\CursoController::class,'visualizar_view']);
 Route::post('/visualizCurso/{id}',[App\Http\Controllers\CursoController::class,'visualizar']);
 Route::delete('/curso/{id}', 'App\Http\Controllers\CursoController@delete')->name('cursos.delete');
+
+Route::get('/funcIndex', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('funcIndex');
+Route::get('/funcCreate', [App\Http\Controllers\FuncionarioController::class, 'create'])->name('funcCreate');
+Route::post('/saveFunc',[App\Http\Controllers\FuncionarioController::class,'saveFunc'])->middleware('web');
+Route::get('/update_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'update_view']);
+Route::post('/update/{id}',[App\Http\Controllers\FuncionarioController::class,'update']);
+Route::delete('/funcionarios/{id}', 'App\Http\Controllers\FuncionarioController@delete')->name('funcionarios.delete');
+Route::get('/visualizar_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar_view']);
+Route::post('/visualizarFunc/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar']);
