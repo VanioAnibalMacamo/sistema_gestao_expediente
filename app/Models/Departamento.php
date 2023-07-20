@@ -16,4 +16,18 @@ class Departamento extends Model
         return $this->hasMany(TipoExpediente::class);
     }
 
+    public function funcionarios()
+    {
+        return $this->belongsToMany(Funcionario::class, 'funcionario_departamento_cargo', 'departamento_id', 'funcionario_id')
+            ->withPivot('cargo_id')
+            ->withTimestamps();
+    }
+
+    public function cargos()
+    {
+        return $this->belongsToMany(Cargo::class, 'funcionario_departamento_cargo', 'departamento_id', 'cargo_id')
+            ->withPivot('funcionario_id')
+            ->withTimestamps();
+    }
+
 }
