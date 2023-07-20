@@ -21,4 +21,9 @@ class Expediente extends Model
         return $this->belongsTo(EstagioProcesso::class);
     }
 
+    public function estudante()
+    {
+        return $this->belongsTo(Estudante::class);
+    }
+
 }

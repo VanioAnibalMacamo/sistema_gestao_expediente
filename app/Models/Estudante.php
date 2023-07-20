@@ -10,4 +10,9 @@ class Estudante extends Model
     use HasFactory;
 
     protected $fillable = ['nome','apelido','curso','codigo','contacto','morada'];
+
+    public function expedientes()
+    {
+        return $this->hasMany(Expediente::class);
+    }
 }

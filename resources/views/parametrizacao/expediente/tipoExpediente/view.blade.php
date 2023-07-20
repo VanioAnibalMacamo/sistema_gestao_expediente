@@ -46,7 +46,7 @@
                                     <div class="form-check col-md-6">
                                         <input class="form-check-input" type="checkbox" name="estagios_processo[]" value="{{ $estagioProcesso->id }}" id="estagio_{{ $estagioProcesso->id }}" checked disabled>
                                         <label class="form-check-label" for="estagio_{{ $estagioProcesso->id }}">
-                                            {{ $estagioProcesso->nome }}
+                                            <span class="badge badge-primary">{{ $estagioProcesso->nome }}</span>
                                         </label>
                                     </div>
                                 @endif
