@@ -357,12 +357,15 @@ return [
                             'url'  => 'tipo_expedienteIndex',
 
                         ],
-
-
                     ],
-
-
                 ],
+
+                [
+                    'text' => 'Cargos',
+                    'url'  => 'cargoIndex',
+                    'icon' => 'fas fa-briefcase',
+                ],
+
 
 
             ],

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CargoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,3 +85,12 @@ Route::post('/update/{id}',[App\Http\Controllers\FuncionarioController::class,'u
 Route::delete('/funcionarios/{id}', 'App\Http\Controllers\FuncionarioController@delete')->name('funcionarios.delete');
 Route::get('/visualizar_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar_view']);
 Route::post('/visualizarFunc/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar']);
+
+Route::get('/cargoIndex', [CargoController::class, 'index'])->name('cargoIndex');
+Route::get('/cargoCreate', [CargoController::class, 'create'])->name('cargoCreate');
+Route::post('/saveCargo', [CargoController::class, 'saveCargo'])->name('saveCargo');
+Route::get('/update_cargo/{id}', [CargoController::class, 'updateView']);
+Route::post('/updateCargo/{id}', [App\Http\Controllers\CargoController::class, 'update'])->name('updateCargo');
+Route::delete('/cargos/{id}', [CargoController::class, 'delete'])->name('cargos.delete');
+Route::get('/visualizar_cargo/{id}', [CargoController::class, 'visualizarView']);
+Route::post('/visualizarCargo/{id}', [CargoController::class, 'visualizar']);
