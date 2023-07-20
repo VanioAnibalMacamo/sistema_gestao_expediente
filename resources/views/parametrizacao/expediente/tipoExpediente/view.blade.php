@@ -37,6 +37,23 @@
                         </select>
                     </div>
 
+                    <!-- Estágios de Processo -->
+                    <div class="form-group col-md-6">
+                        <label>Estágios de Processo</label>
+                        <div class="row">
+                            @foreach($estagioProcessos as $estagioProcesso)
+                                @if(in_array($estagioProcesso->id, $tipoExpediente->estagiosProcesso->pluck('id')->toArray()))
+                                    <div class="form-check col-md-6">
+                                        <input class="form-check-input" type="checkbox" name="estagios_processo[]" value="{{ $estagioProcesso->id }}" id="estagio_{{ $estagioProcesso->id }}" checked disabled>
+                                        <label class="form-check-label" for="estagio_{{ $estagioProcesso->id }}">
+                                            {{ $estagioProcesso->nome }}
+                                        </label>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+
 
                     <div class="card-footer">
                         <a  href="{{ url('/tipo_expedienteIndex') }}" type="button" class="btn btn-warning">Voltar</a>

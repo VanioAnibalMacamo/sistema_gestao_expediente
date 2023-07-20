@@ -32,15 +32,25 @@
                       <th>Nome</th>
                       <th>Descrição</th>
                       <th>Departamento</th>
+                      <th>Estágios de Processo</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach ($tipoExpedientes as $tipoExpediente)
+                    @foreach ($tipoExpedientes as $tipoExpediente)
                     <tr>
                       <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $tipoExpediente->nome}}</td>
-                      <td>{{ $tipoExpediente->descricao}}</td>
-                      <td>{{ $tipoExpediente->departamento->nome}}</td>
+                      <td>{{ $tipoExpediente->nome }}</td>
+                      <td>{{ $tipoExpediente->descricao }}</td>
+                      <td>{{ $tipoExpediente->departamento->nome }}</td>
+                      <td>
+                        @if ($tipoExpediente->estagiosProcesso->count() > 0)
+                          @foreach ($tipoExpediente->estagiosProcesso as $estagioProcesso)
+                            <span class="badge badge-primary">{{ $estagioProcesso->nome }}</span>
+                          @endforeach
+                        @else
+                          <span class="badge badge-danger">Nenhum estágio de processo</span>
+                        @endif
+                      </td>
                       <td>
                             <!-- Large modal -->
                             <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_tipo_expediente',$tipoExpediente->id)}}"><i class="fas fa-eye"></i></a>
