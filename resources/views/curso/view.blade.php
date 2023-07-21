@@ -20,11 +20,11 @@
                     <div class= "form-row">
                         <div class="form-group col-md-6">
                             <label for="inputAddress">Nome</label>
-                            <input type="text" class="form-control" id="nome" name='nome' value="{{ $cursos->nome }}" placeholder="Digite o nome do cursos..."readonly>
+                            <input type="text" class="form-control" id="nome" name='nome' value="{{ $curso->nome }}" placeholder="Digite o nome do cursos..."readonly>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Sigla</label>
-                            <input type="text" class="form-control" id="sigla" name='sigla'  value="{{ $cursos->sigla }}" placeholder="sigla do cursos"readonly>
+                            <input type="text" class="form-control" id="sigla" name='sigla'  value="{{ $curso->sigla }}" placeholder="sigla do cursos"readonly>
                             </div>
                         </div>
                         
