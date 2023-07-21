@@ -317,7 +317,7 @@ return [
         [
             'text'=> 'Cursos',
             'url'=> 'cursoIndex',
-            'icon'=> 'fa-solid fa-graduation-cap',
+            'icon'=> 'fa fa-graduation-cap',
         ],
         [
             'text' => 'Funcionários',
