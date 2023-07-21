@@ -35,7 +35,7 @@ public function saveEstudante(Request $request)
     $estudante = new Estudante();
 
         $estudante->nome = $request->nome;
-        $estudante->apeido = $request->apelido;
+        $estudante->apelido = $request->apelido;
         $estudante->curso = $request->curso;
         $estudante->codigo = $request->codigo;
         $estudante->contacto = $request->contacto;
@@ -50,7 +50,7 @@ public function update(Request $request, $id){
 
     $estudante =  Estudante:: find($id);
     $estudante->nome=$request->nome;
-    $estudante->apeido=$request->apelido;
+    $estudante->apelido=$request->apelido;
     $estudante->curso=$request->curso;
     $estudante->codigo=$request->codigo;
     $estudante->contacto=$request->contacto;
