@@ -352,7 +352,7 @@ return [
                         [
                             'text' => 'Users',
                             'icon' => 'fas fa-user-circle',
-                            'url'  => '#',
+                            'url'  => 'users',
                         ],
                         [
                             'text' => 'Roles',

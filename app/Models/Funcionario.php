@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Funcionario extends Model
 {
@@ -22,5 +23,11 @@ class Funcionario extends Model
         return $this->belongsToMany(Cargo::class, 'funcionario_departamento_cargo', 'funcionario_id', 'cargo_id')
             ->withPivot('departamento_id')
             ->withTimestamps();
+    }
+
+    // Relacionamentos do modelo Employee
+    public function user()
+    {
+        return $this->morphOne(User::class, 'userable');
     }
 }
