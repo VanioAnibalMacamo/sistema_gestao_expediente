@@ -95,6 +95,12 @@ Route::delete('/cargos/{id}', [CargoController::class, 'delete'])->name('cargos.
 Route::get('/visualizar_cargo/{id}', [CargoController::class, 'visualizarView']);
 Route::post('/visualizarCargo/{id}', [CargoController::class, 'visualizar']);
 
+Route::get('/permIndex', [App\Http\Controllers\PermissionController::class, 'index'])->name('permIndex');
+Route::get('/permissionCreate', [App\Http\Controllers\PermissionController::class, 'create'])->name('permissionCreate');
+Route::post('/savePermission',[App\Http\Controllers\PermissionController::class,'savePermission'])->middleware('web');
+Route::delete('/permissions/{id}', 'App\Http\Controllers\PermissionController@delete')->name('permissions.delete');
+
+
 Route::get('/funcDepCargoIndex', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'index'])->name('funcDepCargoIndex');
 Route::get('/createAlocacao', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'create'])->name('createAlocacao');
 Route::get('/update_alocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update_view']);

@@ -305,11 +305,6 @@ return [
 
         ['header' => 'account_settings'],
         [
-            'text' => 'Users',
-            'url'  => 'userIndex',
-            'icon' => 'fas fa-regular fa-users',
-        ],
-        [
             'text'=> 'Estudantes',
             'url'=> 'estudanteIndex',
             'icon'=> 'fas fa-user-graduate',
@@ -350,6 +345,27 @@ return [
                     'url'     => 'funcDepCargoIndex',
                     'icon' => 'fas fa-user-plus',
                 ],
+                [
+                    'text'    => 'Users',
+                    'icon' => 'fas fa-regular fa-users',
+                    'submenu' => [
+                        [
+                            'text' => 'Users',
+                            'icon' => 'fas fa-user-circle',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text' => 'Roles',
+                            'icon' => 'fas fa-user-tag',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text' => 'Permissions',
+                            'icon' => 'fas fa-key',
+                            'url'  => 'permIndex',
+                        ],
+                    ],
+                ],
             ],
         ],
 
@@ -361,7 +377,6 @@ return [
                 [
                     'text'    => 'Expedientes',
                     'url'     => '#',
-                   // 'icon' => 'fas fa-id-card',
                    'icon' => 'fas fa-clipboard-list',
                     'submenu' => [
                         [
