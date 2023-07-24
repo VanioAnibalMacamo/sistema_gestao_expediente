@@ -11,6 +11,9 @@ use HasFactory;
 protected $fillable=['nome','sigla'];
 
 
-
+public function estudante()
+{
+    return $this->belongsTo(Estudante::class);
+}
 
 }

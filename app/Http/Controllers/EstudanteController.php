@@ -5,6 +5,7 @@ namespace App\http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Estudante;
+use App\Models\Curso;
 
 
 
@@ -16,7 +17,7 @@ class  EstudanteController extends Controller{
 public function index(){
 
 $estudantes = Estudante:: paginate(8);
-return view('/estudante.index',['estudantes'=>$estudantes]);
+return view('/estudante.index',compact('estudantes'));
 }
 
 
@@ -26,7 +27,8 @@ public function update_view($id){
 }
 public function create()
 {
-    return view('estudante.create');
+    $cursos = Curso::all();
+    return view('estudante.create',compact('cursos'));
 }
 
 public function saveEstudante(Request $request)

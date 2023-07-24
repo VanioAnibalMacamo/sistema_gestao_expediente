@@ -33,9 +33,14 @@
                         <label for="inputPassword4">Codigo</label>
                         <input type="text" class="form-control" id="codigo" name='codigo' placeholder="Apelido do Estudante">
                         </div>
-                        <div class="form-group col-md-6">
-                        <label for="inputEmail4">Curso</label>
-                        <input type="text" class="form-control" id="curso" name='curso' placeholder="Curso do Estudante">
+                        <div class="form-group col-md-4">
+                            <label for="curso_id">Curso</label>
+                            <select class="form-control" id="curso_id" name="curso_id">
+                                <option value="">Selecione um Curso</option>
+                                @foreach($cursos as $curso)
+                                    <option value="{{ $curso->id }}">{{ $curso->nome }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">

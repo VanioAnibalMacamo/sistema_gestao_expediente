@@ -47,7 +47,7 @@
                       <td>{{ $estudante->nome}}</td>
                       <td>{{ $estudante->apelido}}</td>
                       <td>{{ $estudante->codigo}}</td>
-                      <td>{{ $estudante->curso}}</td>
+                      <td>{{ $estudante->curso ? $estudante->curso->nome : 'Nenhum curso associado' }}</td>
                       <td>{{ $estudante->contacto}}</td>
                       <td>{{ $estudante->morada}}</td>
                       <td> 
