@@ -357,7 +357,7 @@ return [
                         [
                             'text' => 'Roles',
                             'icon' => 'fas fa-user-tag',
-                            'url'  => '#',
+                            'url'  => 'roleIndex',
                         ],
                         [
                             'text' => 'Permissions',

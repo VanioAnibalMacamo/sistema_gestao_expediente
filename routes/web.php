@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CargoController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,13 @@ Route::get('/permissionCreate', [App\Http\Controllers\PermissionController::clas
 Route::post('/savePermission',[App\Http\Controllers\PermissionController::class,'savePermission'])->middleware('web');
 Route::delete('/permissions/{id}', 'App\Http\Controllers\PermissionController@delete')->name('permissions.delete');
 
+Route::get('/roleIndex', [RoleController::class, 'index'])->name('roleIndex');
+Route::get('/roleCreate', [RoleController::class, 'create'])->name('roles.create');
+Route::post('/saveRole', [RoleController::class, 'store'])->name('roles.store');
+Route::get('/update_role/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+Route::put('/updateRole/{id}', [RoleController::class, 'update'])->name('updateRole');
+Route::delete('/delete_role/{id}', [RoleController::class, 'delete'])->name('roles.delete');
+Route::get('visualizar_role/{id}', [RoleController::class, 'visualizar_role'])->name('roles.visualizar');
 
 Route::get('/funcDepCargoIndex', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'index'])->name('funcDepCargoIndex');
 Route::get('/createAlocacao', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'create'])->name('createAlocacao');
