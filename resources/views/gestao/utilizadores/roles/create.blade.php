@@ -41,7 +41,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <input type="submit" class="btn btn-primary" value="Salvar">
-                <a href="{{ route('roles.index') }}" type="button" class="btn btn-warning">Cancelar</a>
+                <a href="{{ route('roleIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
             </div>
         </form>
     </div>

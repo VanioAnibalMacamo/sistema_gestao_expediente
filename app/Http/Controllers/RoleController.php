@@ -37,7 +37,7 @@ class RoleController extends Controller
             $role->permissions()->attach($permissions);
         }
 
-        return redirect()->route('roles.index')->with('mensagem', 'Função cadastrada com sucesso!');
+        return redirect()->route('roleIndex')->with('mensagem', 'Função cadastrada com sucesso!');
     }
 
     public function edit($id)
