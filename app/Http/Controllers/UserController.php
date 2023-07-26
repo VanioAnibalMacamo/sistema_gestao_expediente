@@ -29,7 +29,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Valide os dados do formulário
+
+       // Valide os dados do formulário
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
@@ -37,13 +38,14 @@ class UserController extends Controller
             'tipo_usuario' => 'required|string',
         ]);
 
-        // Crie o usuário
+
+       // Crie o usuário
         $user = User::create([
             'name' => $request->input('name'),
-            'tipo_usuario' => $request->input('tipo_usuario'),
+            'email' => $request->input('email'),
+            'tipo_usuario' => $request->input('tipo_usuario'), // Adicione esta linha para definir o tipo de usuário
             'estado' => $request->input('estado'),
-            'email' => $request->input('email'), // Adicionar o campo de email
-            'password' => bcrypt('password'), // Definir o valor padrão para a senha
+            'password' => bcrypt($request->input('name')), // Criptografe a senha fornecida pelo usuário
         ]);
 
         // Obtenha o tipo de usuário selecionado (Estudante ou Funcionário)
@@ -75,5 +77,16 @@ class UserController extends Controller
         }
 
         return redirect()->route('users')->with('mensagem', 'Usuário criado com sucesso!');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect()->route('users')->with('successDelete', 'Usuário excluído com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->route('users')->with('successDelete', 'Não foi possível excluir o usuário.');
         }
+    }
 }

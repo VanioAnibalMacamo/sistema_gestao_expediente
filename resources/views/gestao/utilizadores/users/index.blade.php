@@ -40,12 +40,26 @@
                             <td>{{ $user->name }}</td>
                             <td>
                                 @foreach($user->roles as $role)
-                                    <span class="badge badge-primary">{{ $role->name }}</span>
+                                    <span class="badge badge-success">{{ $role->name }}</span>
                                 @endforeach
                             </td>
-                            <td>{{ $user->departamento }}</td>
-                            <td>{{ $user->curso }}</td>
-                            <td>{{ $user->estado }}</td>
+                            @if ($user->userable_type === 'App\Models\Estudante' && $user->userable->curso)
+                                <td>{{ $user->userable->curso->nome }}</td>
+                                <td>-</td>
+                            @elseif ($user->userable_type === 'App\Models\Funcionario' && $user->userable->departamento)
+                                <td>-</td>
+                                <td>{{ $user->userable->departamento->nome }}</td>
+                            @else
+                                <td>-</td>
+                                <td>-</td>
+                            @endif
+                            <td>
+                                @if ($user->estado === 'Activo')
+                                    <span class="badge badge-primary">{{ $user->estado }}</span>
+                                @elseif ($user->estado === 'Inactivo')
+                                    <span class="badge badge-danger">{{ $user->estado }}</span>
+                                @endif
+                            </td>
                             <td>
                                 <!-- Visualizar -->
                                 <a class="btn btn-primary btn-sm d-inline" href="{{ url('visualizar_user', $user->id) }}"><i class="fas fa-eye"></i></a>

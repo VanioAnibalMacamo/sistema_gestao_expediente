@@ -22,7 +22,8 @@ class Estudante extends Model
         return $this->belongsTo(Curso::class, 'curso_id');
     }
 
-    public function user(): MorphOne
+    // Relacionamentos do modelo Student
+    public function user()
     {
         return $this->morphOne(User::class, 'userable');
     }
