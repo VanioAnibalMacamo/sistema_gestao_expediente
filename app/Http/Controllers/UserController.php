@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Estudante;
 use App\Models\Funcionario;
-
+use App\Models\Departamento;
 
 class UserController extends Controller
 {
@@ -110,6 +110,59 @@ class UserController extends Controller
     public function updateView($id)
     {
         $user = User::findOrFail($id);
-        return view('gestao.utilizadores.users.edit', compact('user'));
+        $funcionarios = Funcionario::all();
+        $estudantes = Estudante::all();
+        $departamentos = Departamento::all();
+        $roles = Role::all();
+        return view('gestao.utilizadores.users.edit', compact('user','funcionarios','estudantes','departamentos','roles'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Find the user by ID
+        $user = User::findOrFail($id);
+
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'estado' => 'required|string',
+            'tipo_usuario' => 'required|string',
+            // Add other validation rules here...
+        ]);
+
+        // Update the user data
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->estado = $request->input('estado');
+        $user->tipo_usuario = $request->input('tipo_usuario');
+
+        // Save the user
+        $user->save();
+
+        // Update userable data if applicable (Estudante or Funcionario)
+        if ($user->tipo_usuario === 'Estudante') {
+            $estudante = Estudante::find($request->input('estudante_id'));
+            if ($estudante) {
+                $user->userable()->associate($estudante);
+                $user->save();
+            }
+        } elseif ($user->tipo_usuario === 'Funcionario') {
+            $funcionario = Funcionario::find($request->input('funcionario_id'));
+            if ($funcionario) {
+                $user->userable()->associate($funcionario);
+                $user->save();
+            }
+        }
+
+        // Update roles if applicable
+        if ($request->has('roles')) {
+            $user->roles()->sync($request->input('roles'));
+        } else {
+            $user->roles()->detach();
+        }
+
+        // Redirect back to the users list with a success message
+        return redirect()->route('users')->with('success', 'User updated successfully!');
     }
 }

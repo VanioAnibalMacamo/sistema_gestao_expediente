@@ -110,14 +110,13 @@ Route::put('/updateRole/{id}', [RoleController::class, 'update'])->name('updateR
 Route::delete('/delete_role/{id}', [RoleController::class, 'delete'])->name('roles.delete');
 Route::get('visualizar_role/{id}', [RoleController::class, 'visualizar_role'])->name('roles.visualizar');
 
-
 Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::get('/userCreate', [App\Http\Controllers\UserController::class, 'create'])->name('userCreate');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.delete');
 Route::get('/visualizar_user/{id}', [UserController::class, 'visualizarView']);
+Route::get('/update_user/{id}', [UserController::class, 'updateView']);
+route::post('/updateUser/{id}',[App\Http\Controllers\UserController::class,'update'])->name('updateUser');
 
 Route::get('/funcDepCargoIndex', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'index'])->name('funcDepCargoIndex');
 Route::get('/createAlocacao', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'create'])->name('createAlocacao');
