@@ -89,4 +89,27 @@ class UserController extends Controller
             return redirect()->route('users')->with('successDelete', 'Não foi possível excluir o usuário.');
         }
     }
+
+    public function visualizarView($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->tipo_usuario === 'Estudante') {
+            $usuarioDetalhe = $user->estudante; // Relacionamento "estudante" definido na model User
+            $usuarioNome = $usuarioDetalhe->nome; // Nome do estudante
+        } elseif ($user->tipo_usuario === 'Funcionario') {
+            $usuarioDetalhe = $user->funcionario; // Relacionamento "funcionario" definido na model User
+            $usuarioNome = $usuarioDetalhe->nome; // Nome do funcionário
+        } else {
+            $usuarioDetalhe = null;
+            $usuarioNome = '-';
+        }
+        return view('gestao.utilizadores.users.view', compact('user','usuarioDetalhe', 'usuarioNome'));
+    }
+
+    public function updateView($id)
+    {
+        $user = User::findOrFail($id);
+        return view('gestao.utilizadores.users.edit', compact('user'));
+    }
 }

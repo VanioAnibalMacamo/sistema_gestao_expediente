@@ -57,4 +57,14 @@ class User extends Authenticatable
         return $this->morphTo();
     }
 
+    public function estudante()
+    {
+        return $this->hasOne(Estudante::class, 'id', 'userable_id');
+    }
+
+    public function funcionario()
+    {
+        return $this->hasOne(Funcionario::class, 'id', 'userable_id');
+    }
+
 }
