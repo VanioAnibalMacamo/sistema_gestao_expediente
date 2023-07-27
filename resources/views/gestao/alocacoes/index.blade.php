@@ -39,28 +39,9 @@
                     @foreach ($alocacoes as $alocacao)
                         <tr>
                             <td>{{ $alocacao->id }}</td>
-                            @if ($alocacao->funcionario)
-                                <td>{{ $alocacao->funcionario->nome }}</td>
-                            @else
-                                <td>Não alocado</td>
-                            @endif
-                            <td>
-                                @if ($alocacao->departamento)
-                                    {{ $alocacao->departamento->nome }}
-                                @else
-                                    Não alocado
-                                @endif
-                            </td>
-
-                            <td>
-                                @if ($alocacao->cargo)
-                                    {{ $alocacao->cargo->nome }}
-                                @else
-                                    Não alocado
-                                @endif
-                            </td>
-
-
+                            <td>{{ $alocacao->funcionario_nome ?? 'Não alocado' }}</td>
+                            <td>{{ $alocacao->departamento_nome ?? 'Não alocado' }}</td>
+                            <td>{{ $alocacao->cargo_nome ?? 'Não alocado' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

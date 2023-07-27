@@ -13,7 +13,18 @@ class FuncionarioDepartamentoCargoController extends Controller
 {
     public function index()
     {
-        $alocacoes = Funcionario::with('departamentos', 'cargos')->get();
+        $alocacoes = DB::table('funcionario_departamento_cargo')
+            ->leftJoin('funcionarios', 'funcionario_departamento_cargo.funcionario_id', '=', 'funcionarios.id')
+            ->leftJoin('departamentos', 'funcionario_departamento_cargo.departamento_id', '=', 'departamentos.id')
+            ->leftJoin('cargos', 'funcionario_departamento_cargo.cargo_id', '=', 'cargos.id')
+            ->select(
+                'funcionario_departamento_cargo.id',
+                'funcionarios.nome as funcionario_nome',
+                'departamentos.nome as departamento_nome',
+                'cargos.nome as cargo_nome'
+            )
+            ->get();
+
         return view('gestao.alocacoes.index', compact('alocacoes'));
     }
 
