@@ -38,7 +38,7 @@ public function saveEstudante(Request $request)
 
         $estudante->nome = $request->nome;
         $estudante->apelido = $request->apelido;
-        $estudante->curso = $request->curso;
+        $estudante->curso_id = $request->curso_id;
         $estudante->codigo = $request->codigo;
         $estudante->contacto = $request->contacto;
         $estudante->morada = $request->morada;

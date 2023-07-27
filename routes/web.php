@@ -70,14 +70,14 @@ Route::get('/visualizar_estudante/{id}',[App\Http\Controllers\EstudanteControlle
 Route::post('/visualizEstdante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar']);
 Route::delete('/estudante/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('estudantes.delete');
 
-Route::get('/cursoIndex', [App\Http\Controllers\CursoController::class, 'index'])->name('cursoIndex');
-route::get('/CursoCreate',[App\Http\Controllers\CursoController::class,'create'])->name('cursoeCreate');
-Route::post('/saveCurso',[App\Http\Controllers\CursoController::class,'saveCurso'])->middleware('web');
-Route::get('/update_curso/{id}',[App\Http\Controllers\CursoController::class,'update_view']);
-route::post('/updateCurso/{id}',[App\Http\Controllers\CursoController::class,'update']);
-Route::get('/visualizar_curso/{id}',[App\Http\Controllers\CursoController::class,'visualizar_view']);
-Route::post('/visualizCurso/{id}',[App\Http\Controllers\CursoController::class,'visualizar']);
-Route::delete('/curso/{id}', 'App\Http\Controllers\CursoController@delete')->name('cursos.delete');
+Route::get('/AlocacoesIndex', [App\Http\Controllers\AlocacoesController::class, 'index'])->name('AlocacoesIndex');
+route::get('/AlocacoesCreate',[App\Http\Controllers\AlocacoesController::class,'create'])->name('AlocacoeseCreate');
+Route::post('/saveAlocacoes',[App\Http\Controllers\AlocacoesController::class,'saveAlocacoes'])->middleware('web');
+Route::get('/update_Alocacoes/{id}',[App\Http\Controllers\AlocacoesController::class,'update_view']);
+route::post('/updateAlocacoes/{id}',[App\Http\Controllers\AlocacoesController::class,'update']);
+Route::get('/visualizar_Alocacoes/{id}',[App\Http\Controllers\AlocacoesController::class,'visualizar_view']);
+Route::post('/visualizAlocacoes/{id}',[App\Http\Controllers\AlocacoesController::class,'visualizar']);
+Route::delete('/Alocacoes/{id}', 'App\Http\Controllers\AlocacoesController@delete')->name('Alocacoess.delete');
 
 Route::get('/funcIndex', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('funcIndex');
 Route::get('/funcCreate', [App\Http\Controllers\FuncionarioController::class, 'create'])->name('funcCreate');
@@ -120,5 +120,9 @@ route::post('/updateUser/{id}',[App\Http\Controllers\UserController::class,'upda
 
 Route::get('/funcDepCargoIndex', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'index'])->name('funcDepCargoIndex');
 Route::get('/createAlocacao', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'create'])->name('createAlocacao');
+Route::post('/saveAlocacoes',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'saveAlocacoes'])->middleware('web');
 Route::get('/update_alocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update_view']);
+route::post('/updateAlocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update']);
+Route::get('/visualizar_Alocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar_view']);
+Route::post('/visualizAlocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar']);
 Route::delete('/alocacoes/{id}', 'App\Http\Controllers\FuncionarioDepartamentoCargoController@delete')->name('alocaoes.delete');
