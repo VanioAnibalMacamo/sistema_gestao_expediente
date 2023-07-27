@@ -76,6 +76,11 @@
 @stop
 
 @section('js')
+<script>
+    setTimeout(function() {
+        document.querySelector('.alert').remove();
+    }, 5000);
+</script>
     <script>
         function confirmDelete(event, nome, formId) {
             event.preventDefault();
