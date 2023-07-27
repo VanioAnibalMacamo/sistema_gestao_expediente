@@ -3,6 +3,12 @@
 @section('title', 'Alocação de Funcionários')
 
 @section('content_header')
+@if (session('mensagem'))
+<div class="alert alert-success">{{ session('mensagem') }}</div>
+@endif
+@if (session('successDelete'))
+<div class="alert alert-danger">{{ session('successDelete') }}</div>
+@endif
     <h1>Alocação de Funcionários aos Departamentos e Cargos</h1>
 @stop
 

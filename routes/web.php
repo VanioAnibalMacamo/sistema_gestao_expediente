@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FuncionarioDepartamentoCargoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,7 +121,8 @@ route::post('/updateUser/{id}',[App\Http\Controllers\UserController::class,'upda
 
 Route::get('/funcDepCargoIndex', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'index'])->name('funcDepCargoIndex');
 Route::get('/createAlocacao', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'create'])->name('createAlocacao');
-Route::post('/saveAlocacoes',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'saveAlocacoes'])->middleware('web');
+Route::post('saveAlocacoes', 'App\Http\Controllers\FuncionarioDepartamentoCargoController@saveAlocacoes')->name('saveAlocacoes');
+//Route::post('/saveAlocacoes',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'saveAlocacoes'])->middleware('web');
 Route::get('/update_alocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update_view']);
 route::post('/updateAlocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update']);
 Route::get('/visualizar_Alocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar_view']);
