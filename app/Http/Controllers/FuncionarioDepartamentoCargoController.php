@@ -22,14 +22,12 @@ class FuncionarioDepartamentoCargoController extends Controller
                 'funcionarios.nome as funcionario_nome',
                 'departamentos.nome as departamento_nome',
                 'cargos.nome as cargo_nome'
-            )
-            ->get();
+            )->get();
 
         return view('gestao.alocacoes.index', compact('alocacoes'));
     }
 
     public function update_view($id){
-
         return view('/gestao.alocacoes.edit', compact('alocacoes'));
     }
 
