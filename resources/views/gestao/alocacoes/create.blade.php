@@ -48,10 +48,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword4">Acoes</label>
-                            <input type="text" class="form-control" id="codigo" name='codigo' placeholder="Indique as acoes do Funcionario">
-                            </div>
+                        
                     </div>
                   
 

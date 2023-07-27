@@ -22,8 +22,10 @@ class FuncionarioDepartamentoCargoController extends Controller
 
     public function create()
 {
-   
-    return view('gestao.alocacoes.create',compact('alocacoes'));
+    $funcionarios = Funcionario::all();
+    $departamentos = Departamento::all();
+    $cargos = Cargo::all();
+    return view('gestao.alocacoes.create',compact('funcionarios','departamentos','cargos'));
 }
 
 public function saveAlocacoes(Request $request)
