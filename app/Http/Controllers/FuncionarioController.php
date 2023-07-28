@@ -18,9 +18,8 @@ class FuncionarioController extends Controller
 
     public function create()
     {
-        $user = Auth::user();
-        $canCreate = $user->roles->flatMap->permissions->pluck('name')->contains('Cadastrar Funcionario');
-        if ($canCreate) {
+
+        if (Auth::user()->can('create', Funcionario::class)) {
             return view('funcionario.create');
         } else {
             return redirect()->back()->with('error', 'Você não tem permissão para criar um novo Funcionário.');
@@ -29,8 +28,6 @@ class FuncionarioController extends Controller
 
     public function saveFunc(Request $request){
 
-        // Crie um novo registro de funcionário a partir dos dados da solicitação
-        //$funcionario = new Funcionario($request->all());
         $funcionario = new Funcionario();
         $funcionario->nome=$request->nome;
         $funcionario->morada=$request->morada;

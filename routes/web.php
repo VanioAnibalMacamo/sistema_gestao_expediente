@@ -81,7 +81,7 @@ Route::post('/visualizAlocacoes/{id}',[App\Http\Controllers\AlocacoesController:
 Route::delete('/Alocacoes/{id}', 'App\Http\Controllers\AlocacoesController@delete')->name('Alocacoess.delete');
 
 Route::get('/funcIndex', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('funcIndex');
-Route::get('/funcCreate', [App\Http\Controllers\FuncionarioController::class, 'create'])->name('funcCreate');
+Route::get('/funcCreate', [App\Http\Controllers\FuncionarioController::class, 'create'])->name('funcCreate')->middleware('can:create,App\Models\Funcionario');
 Route::post('/saveFunc',[App\Http\Controllers\FuncionarioController::class,'saveFunc'])->middleware('web');
 Route::get('/update_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'update_view']);
 Route::post('/update/{id}',[App\Http\Controllers\FuncionarioController::class,'update']);
