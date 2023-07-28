@@ -14,10 +14,10 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            ['name' => 'Cadastrar'],
-            ['name' => 'Editar'],
-            ['name' => 'Visualizar'],
-            ['name' => 'Apagar'],
+            ['name' => 'Cadastrar Funcionario'],
+            ['name' => 'Editar Funcionario'],
+            ['name' => 'Visualizar Funcionario'],
+            ['name' => 'Apagar Funcionario'],
         ];
 
         Permission::insert($permissions);

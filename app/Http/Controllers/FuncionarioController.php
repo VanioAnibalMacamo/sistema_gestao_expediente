@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Funcionario;
+use Illuminate\Support\Facades\Auth;
 
 class FuncionarioController extends Controller
 {
@@ -17,7 +18,13 @@ class FuncionarioController extends Controller
 
     public function create()
     {
-        return view('funcionario.create');
+        $user = Auth::user();
+        $canCreate = $user->roles->flatMap->permissions->pluck('name')->contains('Cadastrar Funcionario');
+        if ($canCreate) {
+            return view('funcionario.create');
+        } else {
+            return redirect()->back()->with('error', 'Você não tem permissão para criar um novo Funcionário.');
+        }
     }
 
     public function saveFunc(Request $request){
