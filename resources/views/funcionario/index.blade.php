@@ -49,7 +49,13 @@
                       <td>{{ $funcionario->email}}</td>
                       <td>{{ $funcionario->genero}}<td>
                       <td>{{ $funcionario->num_bi}}</td>
-                      <td></td>
+                      <td>
+                        @if ($funcionario->alocacao)
+                            {{ $funcionario->alocacao->departamento->nome }}
+                        @else
+                            <span class="badge badge-danger">  Funcionario Não Alocado a Departamento</span
+                        @endif
+                     </td>
                       <td>
                             <!-- Large modal -->
                             <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_funcionario',$funcionario->id)}}"><i class="fas fa-eye"></i></a>
