@@ -127,3 +127,12 @@ route::post('/updateAlocacao/{id}',[App\Http\Controllers\FuncionarioDepartamento
 Route::get('/visualizar_alocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar_view']);
 Route::post('/visualizAlocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar']);
 Route::delete('/alocacoes/{id}', 'App\Http\Controllers\FuncionarioDepartamentoCargoController@delete')->name('alocacoes.delete');
+
+Route::get('/cursoIndex', [App\Http\Controllers\CursoController::class, 'index'])->name('cursoIndex');
+Route::delete('/curso/{id}', 'App\Http\Controllers\CursoController@delete')->name('cursos.delete');
+Route::get('/CursoCreate', [App\Http\Controllers\CursoController::class, 'create'])->name('CursoCreate');
+Route::post('saveCurso', 'App\Http\Controllers\CursoController@saveCurso')->name('saveCurso');
+Route::get('/update_curso/{id}',[App\Http\Controllers\CursoController::class,'update_view']);
+route::post('/updateCurso/{id}',[App\Http\Controllers\CursoController::class,'update']);
+Route::get('/visualizar_curso/{id}',[App\Http\Controllers\CursoController::class,'visualizar_view']);
+Route::post('/visualizCursos/{id}',[App\Http\Controllers\CursoController::class,'visualizar']);

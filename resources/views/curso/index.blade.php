@@ -13,7 +13,7 @@
 @stop
 
 @section('content')
-    
+
 
 <div class="d-flex flex-row-reverse align-items-end mb-3">
   <a href="{{ url('CursoCreate') }}"  class="btn btn-primary">
@@ -22,9 +22,6 @@
 </div>
 
 <div class="card">
-            
-
-        
               <div class="card-body p-0">
                 <table class="table table-striped">
                   <thead>
@@ -32,7 +29,7 @@
                       <th style="width: 10px">#</th>
                       <th>Nome</th>
                       <th>Sigla</th>
-                     
+
                     </tr>
                   </thead>
                   <tbody>
@@ -41,12 +38,12 @@
                       <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $curso->nome}}</td>
                       <td>{{ $curso->sigla}}</td>
-                     
-                      <td> 
+
+                      <td>
                             <!-- Large modal -->
                             <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_curso',$curso->id)}}"><i class="fas fa-eye"></i></a>
                             <a class="btn btn-info btn-sm d-inline"  href="{{url('update_curso',$curso->id)}}"> <i class="fas fa-pencil-alt"></i></a>
-                           
+
                             <form id="form-excluir-{{ $curso->id }}" action="{{ route('cursos.delete', ['id' => $curso->id]) }}" method="POST" class="d-inline">
                                   @csrf
                                   @method('DELETE')
@@ -60,5 +57,38 @@
                 </table>
                 {{ $cursos->links('pagination::bootstrap-4') }}
               </div>
-            </div>      
+            </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+    <script>
+        setTimeout(function() {
+            document.querySelector('.alert').remove();
+        }, 5000);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(event, nome, formId) {
+        event.preventDefault(); // Prevenir envio do formulário padrão
+
+        Swal.fire({
+            title: 'Tem certeza que deseja excluir o Curso' + nome + '?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('form-excluir-' + formId).submit(); // Enviar formulário específico após confirmação
+            }
+        });
+    }
+</script>
 @stop

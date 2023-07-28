@@ -4,16 +4,16 @@
 
 @section('content_header')
     <h1> Visualizar Curso</h1>
-      
+
 @stop
 
 @section('content')
-        
+
     <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Dados do Curso</h3>
               </div>
-              
+
               <form action="{{url('saveCurso')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
@@ -27,13 +27,13 @@
                             <input type="text" class="form-control" id="sigla" name='sigla'  value="{{ $curso->sigla }}" placeholder="sigla do cursos"readonly>
                             </div>
                         </div>
-                        
-                        
-    
-                   
-                   
+
+
+
+
+
                     <div class="card-footer">
-                        <a  href="{{ url('/cursosIndex') }}" type="button" class="btn btn-warning">Voltar</a>
+                        <a  href="{{ url('/cursoIndex') }}" type="button" class="btn btn-warning">Voltar</a>
                     </div>
               </form>
             </div>

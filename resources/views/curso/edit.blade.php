@@ -28,8 +28,8 @@
             </div>
 
         </div>
-        
-          
+
+
 
           <div class="card-footer">
               <input type="submit" class="btn btn-primary" value='Actualizar'>
