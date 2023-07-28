@@ -102,6 +102,8 @@ Route::get('/permIndex', [App\Http\Controllers\PermissionController::class, 'ind
 Route::get('/permissionCreate', [App\Http\Controllers\PermissionController::class, 'create'])->name('permissionCreate');
 Route::post('/savePermission',[App\Http\Controllers\PermissionController::class,'savePermission'])->middleware('web');
 Route::delete('/permissions/{id}', 'App\Http\Controllers\PermissionController@delete')->name('permissions.delete');
+Route::get('/update_permission/{id}', [App\Http\Controllers\PermissionController::class, 'updateView']);
+Route::post('/updatePermission/{id}', [App\Http\Controllers\PermissionController::class, 'update'])->name('updatePermission');
 
 Route::get('/roleIndex', [RoleController::class, 'index'])->name('roleIndex');
 Route::get('/roleCreate', [RoleController::class, 'create'])->name('roles.create');

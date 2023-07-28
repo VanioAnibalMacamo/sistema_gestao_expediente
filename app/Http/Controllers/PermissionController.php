@@ -39,4 +39,19 @@ class PermissionController extends Controller
 
         return redirect('/permIndex')->with('successDelete', 'Permissão excluída com sucesso!');
     }
+
+    public function updateView($id)
+    {
+        $permission = Permission::find($id);
+        return view('gestao.utilizadores.permissions.edit', compact('permission'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $permission = Permission::find($id);
+        $permission->name = $request->input('name');
+        $permission->save();
+
+        return redirect('/permIndex')->with('mensagem', 'Permissão atualizada com sucesso!');
+    }
 }

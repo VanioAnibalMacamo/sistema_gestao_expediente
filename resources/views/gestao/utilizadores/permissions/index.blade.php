@@ -36,9 +36,7 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $permission->name }}</td>
                         <td>
-                            <!-- Visualizar -->
-                            <a class="btn btn-primary btn-sm d-inline" href="{{ url('visualizar_permission', $permission->id) }}"><i class="fas fa-eye"></i></a>
-                            <!-- Editar -->
+                             <!-- Editar -->
                             <a class="btn btn-info btn-sm d-inline" href="{{ url('update_permission', $permission->id) }}"><i class="fas fa-pencil-alt"></i></a>
                             <!-- Excluir -->
                             <form id="form-excluir-{{ $permission->id }}" action="{{ route('permissions.delete', ['id' => $permission->id]) }}" method="POST" class="d-inline">
