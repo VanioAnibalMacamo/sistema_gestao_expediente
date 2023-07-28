@@ -35,6 +35,9 @@ class PermissionController extends Controller
     public function delete($id)
     {
         $permission = Permission::findOrFail($id);
+        if ($this->isDeletionNotAllowed($permission)) {
+            return redirect('/permIndex')->with('successDelete', 'Não é possível apagar esta permissão.');
+        }
         $permission->delete();
 
         return redirect('/permIndex')->with('successDelete', 'Permissão excluída com sucesso!');
@@ -54,4 +57,15 @@ class PermissionController extends Controller
 
         return redirect('/permIndex')->with('mensagem', 'Permissão atualizada com sucesso!');
     }
+
+    private function isDeletionNotAllowed($permission)
+    {
+
+        if (($permission->name === 'Cadastrar') || ($permission->name === 'Editar') || ($permission->name === 'Visualizar')
+            || ($permission->name === 'Apagar') ) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -13,12 +13,13 @@
 @stop
 
 @section('content')
-    <div class="d-flex flex-row-reverse align-items-end mb-3">
-        <a href="{{ url('permissionCreate') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Adicionar
-        </a>
-    </div>
-
+    <!--
+        <div class="d-flex flex-row-reverse align-items-end mb-3">
+            <a href="{{ url('permissionCreate') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Adicionar
+            </a>
+        </div>
+    -->
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -27,7 +28,7 @@
                 <tr>
                     <th style="width: 10px">#</th>
                     <th>Nome</th>
-                    <th>Acções</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -35,16 +36,19 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $permission->name }}</td>
+                        <!--
                         <td>
-                             <!-- Editar -->
+
                             <a class="btn btn-info btn-sm d-inline" href="{{ url('update_permission', $permission->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                            <!-- Excluir -->
+
                             <form id="form-excluir-{{ $permission->id }}" action="{{ route('permissions.delete', ['id' => $permission->id]) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event, '{{ $permission->name }}', {{ $permission->id }})"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
+
+                    -->
                     </tr>
                 @endforeach
                 </tbody>
