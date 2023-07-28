@@ -7,28 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\Funcionario;
 use App\Models\Departamento;
 use App\Models\Cargo;
+use App\Models\Alocacao;
 use Illuminate\Support\Facades\DB;
 
 class FuncionarioDepartamentoCargoController extends Controller
 {
+
     public function index()
     {
-        $alocacoes = DB::table('funcionario_departamento_cargo')
-            ->leftJoin('funcionarios', 'funcionario_departamento_cargo.funcionario_id', '=', 'funcionarios.id')
-            ->leftJoin('departamentos', 'funcionario_departamento_cargo.departamento_id', '=', 'departamentos.id')
-            ->leftJoin('cargos', 'funcionario_departamento_cargo.cargo_id', '=', 'cargos.id')
-            ->select(
-                'funcionario_departamento_cargo.id',
-                'funcionarios.nome as funcionario_nome',
-                'departamentos.nome as departamento_nome',
-                'cargos.nome as cargo_nome'
-            )->get();
-
+        $alocacoes = Alocacao::with('funcionario', 'departamento', 'cargo')->get();
         return view('gestao.alocacoes.index', compact('alocacoes'));
-    }
-
-    public function update_view($id){
-        return view('/gestao.alocacoes.edit', compact('alocacoes'));
     }
 
     public function create()
@@ -63,6 +51,64 @@ class FuncionarioDepartamentoCargoController extends Controller
         } else {
             return redirect()->route('funcDepCargoIndex')->with('successDelete', 'Alocacao Cadastrado com sucesso!');
         }
+    }
+
+    public function delete($id)
+    {
+
+        $alocacao = Alocacao::find($id);
+
+        if (!$alocacao) {
+            return redirect()->back()->with('successDelete', 'Alocação não encontrada.');
+        }
+        $alocacao->delete();
+
+        return redirect()->route('funcDepCargoIndex')->with('successDelete', 'Alocação excluída com sucesso.');
+    }
+
+    public function visualizar_view($id){
+        $alocacao = Alocacao::find($id);
+
+        if (!$alocacao) {
+            return redirect()->back()->with('successDelete', 'Alocação não encontrada.');
+        }
+
+        return view('gestao.alocacoes.view', compact('alocacao'));
+    }
+
+    public function update_view($id){
+        $alocacao = Alocacao::find($id);
+
+        if (!$alocacao) {
+            return redirect()->back()->with('successDelete', 'Alocação não encontrada.');
+        }
+        $funcionarios = Funcionario::all();
+        $departamentos = Departamento::all();
+        $cargos = Cargo::all();
+
+        return view('gestao.alocacoes.edit', compact('alocacao', 'funcionarios', 'departamentos', 'cargos'));
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $request->validate([
+            'funcionario_id' => 'required|exists:funcionarios,id',
+            'departamento_id' => 'required|exists:departamentos,id',
+            'cargo_id' => 'required|exists:cargos,id',
+        ]);
+        $alocacao = Alocacao::find($id);
+
+        if (!$alocacao) {
+            return redirect()->back()->with('error', 'Alocação não encontrada.');
+        }
+
+        $alocacao->funcionario_id = $request->funcionario_id;
+        $alocacao->departamento_id = $request->departamento_id;
+        $alocacao->cargo_id = $request->cargo_id;
+        $alocacao->save();
+
+        return redirect()->route('funcDepCargoIndex', ['id' => $alocacao->id])->with('mensagem', 'Alocação actualizada com sucesso.');
     }
 
 

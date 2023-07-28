@@ -38,10 +38,19 @@
                 <tbody>
                     @foreach ($alocacoes as $alocacao)
                         <tr>
-                            <td>{{ $alocacao->id }}</td>
-                            <td>{{ $alocacao->funcionario_nome ?? 'Não alocado' }}</td>
-                            <td>{{ $alocacao->departamento_nome ?? 'Não alocado' }}</td>
-                            <td>{{ $alocacao->cargo_nome ?? 'Não alocado' }}</td>
+                            <td>{{  $loop->index + 1  }}</td>
+                            <td>{{ $alocacao->funcionario->nome ?? 'Não alocado' }}</td>
+                            <td>{{ $alocacao->departamento->nome ?? 'Não alocado' }}</td>
+                            <td>{{ $alocacao->cargo->nome ?? 'Não alocado' }}</td>
+                            <td>
+                                <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_alocacao',$alocacao->id)}}"><i class="fas fa-eye"></i></a>
+                                <a class="btn btn-info btn-sm d-inline" href="{{url('update_alocacao',$alocacao->id)}}"> <i class="fas fa-pencil-alt"></i></a>
+                                <form id="form-excluir-{{ $alocacao->id }}" action="{{ route('alocacoes.delete', ['id' => $alocacao->id]) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event, '{{ $alocacao->funcionario->nome }}', '{{ $alocacao->departamento->nome }}', '{{ $alocacao->cargo->nome }}', {{ $alocacao->id }})"><i class="fas fa-trash"></i></button>
+                                </form>
+                          </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -57,16 +66,17 @@
 @stop
 
 @section('js')
-<script>
-    setTimeout(function() {
-        document.querySelector('.alert').remove();
-    }, 5000);
-</script>
     <script>
-        function confirmDelete(event, nome, formId) {
+        setTimeout(function() {
+            document.querySelector('.alert').remove();
+        }, 5000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script>
+        function confirmDelete(event, nome, departamento, cargo, formId) {
             event.preventDefault();
             Swal.fire({
-                title: 'Tem certeza que deseja excluir a alocação de ' + nome + '?',
+                title: 'Tem certeza que deseja excluir a alocação de ' + nome + ' para o departamento' + departamento + ' no cargo ' + cargo + '?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

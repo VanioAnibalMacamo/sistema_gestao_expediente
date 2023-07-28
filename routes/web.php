@@ -123,7 +123,7 @@ Route::get('/funcDepCargoIndex', [App\Http\Controllers\FuncionarioDepartamentoCa
 Route::get('/createAlocacao', [App\Http\Controllers\FuncionarioDepartamentoCargoController::class, 'create'])->name('createAlocacao');
 Route::post('saveAlocacoes', 'App\Http\Controllers\FuncionarioDepartamentoCargoController@saveAlocacoes')->name('saveAlocacoes');
 Route::get('/update_alocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update_view']);
-route::post('/updateAlocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update']);
-Route::get('/visualizar_Alocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar_view']);
+route::post('/updateAlocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'update']);
+Route::get('/visualizar_alocacao/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar_view']);
 Route::post('/visualizAlocacoes/{id}',[App\Http\Controllers\FuncionarioDepartamentoCargoController::class,'visualizar']);
-Route::delete('/alocacoes/{id}', 'App\Http\Controllers\FuncionarioDepartamentoCargoController@delete')->name('alocaoes.delete');
+Route::delete('/alocacoes/{id}', 'App\Http\Controllers\FuncionarioDepartamentoCargoController@delete')->name('alocacoes.delete');
