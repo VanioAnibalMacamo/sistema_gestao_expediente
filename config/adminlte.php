@@ -318,6 +318,7 @@ return [
             'text' => 'Funcionários',
             'url'  => 'funcIndex',
             'icon' => 'fas fa-user-tie',
+            'can'  => '',
         ],
         [
             'text' => 'Departamentos',

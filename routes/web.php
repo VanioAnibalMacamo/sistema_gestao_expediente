@@ -5,6 +5,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FuncionarioDepartamentoCargoController;
+use App\Http\Controllers\FuncionarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,14 +81,14 @@ Route::get('/visualizar_Alocacoes/{id}',[App\Http\Controllers\AlocacoesControlle
 Route::post('/visualizAlocacoes/{id}',[App\Http\Controllers\AlocacoesController::class,'visualizar']);
 Route::delete('/Alocacoes/{id}', 'App\Http\Controllers\AlocacoesController@delete')->name('Alocacoess.delete');
 
-Route::get('/funcIndex', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('funcIndex');
+Route::get('/funcIndex', [App\Http\Controllers\FuncionarioController::class, 'index'])->name('funcIndex')->middleware('can:view,App\Models\Funcionario');
 Route::get('/funcCreate', [App\Http\Controllers\FuncionarioController::class, 'create'])->name('funcCreate')->middleware('can:create,App\Models\Funcionario');
-Route::post('/saveFunc',[App\Http\Controllers\FuncionarioController::class,'saveFunc'])->middleware('web');
-Route::get('/update_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'update_view']);
-Route::post('/update/{id}',[App\Http\Controllers\FuncionarioController::class,'update']);
-Route::delete('/funcionarios/{id}', 'App\Http\Controllers\FuncionarioController@delete')->name('funcionarios.delete');
-Route::get('/visualizar_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar_view']);
-Route::post('/visualizarFunc/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar']);
+Route::post('/saveFunc',[App\Http\Controllers\FuncionarioController::class,'saveFunc'])->middleware('can:create,App\Models\Funcionario');
+Route::get('/update_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'update_view'])->middleware('can:update,App\Models\Funcionario');
+Route::post('/update/{id}',[App\Http\Controllers\FuncionarioController::class,'update'])->middleware('can:update,App\Models\Funcionario');
+Route::delete('/funcionarios/{id}', 'App\Http\Controllers\FuncionarioController@delete')->name('funcionarios.delete')->middleware('can:delete,App\Models\Funcionario');
+Route::get('/visualizar_funcionario/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar_view'])->middleware('can:view,App\Models\Funcionario');
+Route::post('/visualizarFunc/{id}',[App\Http\Controllers\FuncionarioController::class,'visualizar'])->middleware('can:view,App\Models\Funcionario');
 
 Route::get('/cargoIndex', [CargoController::class, 'index'])->name('cargoIndex');
 Route::get('/cargoCreate', [CargoController::class, 'create'])->name('cargoCreate');
