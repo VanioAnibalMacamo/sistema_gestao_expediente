@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control" id="email" name='email' placeholder=" ex: quick@check.co.mz" value="{{ $funcionario->email }}">
+                        <input type="email" class="form-control" id="email" name='email' placeholder=" ex: pessoa@empresa.co.mz" value="{{ $funcionario->email }}">
                     </div>
                 </div>
                 <div class="form-group">
