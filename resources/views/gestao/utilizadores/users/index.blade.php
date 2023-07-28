@@ -27,8 +27,8 @@
                         <th style="width: 10px">#</th>
                         <th>Nome</th>
                         <th>Roles</th>
-                        <th>Departamento</th>
                         <th>Curso</th>
+                        <th>Departamento</th>
                         <th>Estado</th>
                         <th>Ações</th>
                     </tr>
@@ -46,9 +46,14 @@
                             @if ($user->userable_type === 'App\Models\Estudante' && $user->userable->curso)
                                 <td>{{ $user->userable->curso->nome }}</td>
                                 <td>-</td>
-                            @elseif ($user->userable_type === 'App\Models\Funcionario' && $user->userable->departamento)
-                                <td>-</td>
-                                <td>{{ $user->userable->departamento->nome }}</td>
+                            @elseif ($user->userable_type === 'App\Models\Funcionario')
+                                @if ($user->userable->alocacao && $user->userable->alocacao->departamento)
+                                    <td>-</td>
+                                    <td>{{ $user->userable->alocacao->departamento->nome }}</td>
+                                @else
+                                    <td>Funcionário sem alocação</td>
+                                    <td>-</td>
+                                @endif
                             @else
                                 <td>-</td>
                                 <td>-</td>

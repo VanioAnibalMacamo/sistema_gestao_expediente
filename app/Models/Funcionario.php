@@ -25,9 +25,13 @@ class Funcionario extends Model
             ->withTimestamps();
     }
 
-    // Relacionamentos do modelo Employee
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
+    }
+
+    public function alocacao()
+    {
+        return $this->hasOne(Alocacao::class, 'funcionario_id');
     }
 }
