@@ -9,7 +9,7 @@ class PermissionController extends Controller
 {
     public function index(){
 
-        $permissions = Permission:: paginate(8);
+        $permissions = Permission:: paginate(12);
         return view('gestao.utilizadores.permissions.index',['permissions' => $permissions]);
     }
 
