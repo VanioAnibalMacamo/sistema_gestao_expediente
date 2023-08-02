@@ -6,14 +6,36 @@ use Illuminate\Http\Request;
 use App\Models\Expediente;
 use App\Models\TipoExpediente;
 use App\Models\Estudante;
+use Illuminate\Support\Facades\Auth;
 
 class ExpedienteController extends Controller
 {
 
+    /*
     public function index(){
         $expedientes = Expediente::paginate(8);
         return view('expediente.index',['expedientes' => $expedientes]);
     }
+    */
+
+    public function index()
+{
+    $user = Auth::user();
+
+    if ($user->can('view', Estudante::class)) {
+        if ($user->hasRole('Estudante')) {
+            // Se o usuário é um estudante, busca apenas os expedientes do estudante em questão
+            $expedientes = Expediente::where('estudante_id', $user->userable_id)->paginate(8);
+        } else {
+            // Se o usuário é um administrador ou possui outra role, busca todos os expedientes
+            $expedientes = Expediente::paginate(8);
+        }
+
+        return view('expediente.index', ['expedientes' => $expedientes]);
+    } else {
+        return redirect()->back()->with('error', 'Você não tem permissão para visualizar os Expedientes.');
+    }
+}
 
     public function create()
     {
