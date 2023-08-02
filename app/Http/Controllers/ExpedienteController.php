@@ -22,7 +22,7 @@ class ExpedienteController extends Controller
 {
     $user = Auth::user();
 
-    if ($user->can('view', Estudante::class)) {
+    if ($user->can('view', Expediente::class)) {
         if ($user->hasRole('Estudante')) {
             // Se o usuário é um estudante, busca apenas os expedientes do estudante em questão
             $expedientes = Expediente::where('estudante_id', $user->userable_id)->paginate(8);
@@ -39,13 +39,19 @@ class ExpedienteController extends Controller
 
     public function create()
     {
+        if (Auth::user()->can('create', Expediente::class)) {
         $tiposExpediente = TipoExpediente::all();
         $estudantes = Estudante::all();
         return view('expediente.create', compact('tiposExpediente','estudantes'));
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para criar um novo Funcionário.');
     }
+}
 
     public function saveExpediente(Request $request)
     {
+        
+        if (Auth::user()->can('create', Expediente::class)) {
         $request->validate([
             'nome' => 'required',
             'descricao' => 'required',
@@ -71,27 +77,40 @@ class ExpedienteController extends Controller
         $expediente->save();
 
         return redirect('/expedienteIndex')->with('mensagem', 'Expediente salvo com sucesso.');
+    }else {
+        // O usuário não tem permissão, exibe uma mensagem de erro ou redireciona para outra página
+        return redirect()->back()->with('error', 'Você não tem permissão para criar um novo Funcionário.');
     }
+}
 
     public function delete($id)
     {
+        if (Auth::user()->can('delete', Expediente::class)) {
         $expediente = Expediente::find($id);
         $expediente->delete();
 
         return redirect()->route('expedienteIndex')->with('successDelete', 'Expediente Excluido com Sucesso!');
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para apagar este Funcionário.');
     }
+}
 
     public function update_view($id)
     {
+        if (Auth::user()->can('update', Expediente::class)) {
         $expediente = Expediente::find($id);
         $tiposExpediente = TipoExpediente::all();
         $estudantes = Estudante::all();
 
         return view('expediente.edit', compact('expediente', 'tiposExpediente','estudantes'));
+    } else {
+        return redirect()->back()->with('error', 'Você não tem permissão para editar este Funcionário.');
     }
+}
 
     public function update(Request $request, $id)
     {
+        if (Auth::user()->can('update', Expediente::class)) {
         $expediente = Expediente::find($id);
         $expediente->nome = $request->input('nome');
         $expediente->descricao = $request->input('descricao');
@@ -101,12 +120,20 @@ class ExpedienteController extends Controller
         $expediente->save();
 
         return redirect('/expedienteIndex')->with('mensagem', 'Expediente actualizado com sucesso!');
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para editar este Funcionário.');
     }
+}
 
     public function visualizar_view($id)
     {
+        if (Auth::user()->can('view', Expediente::class)) {
         $expediente = Expediente::find($id);
 
         return view('expediente.view', compact('expediente'));
     }
+else {
+    return redirect()->back()->with('error', 'Você não tem permissão para visualizar os detalhes deste Funcionário.');
+}
+}
 }

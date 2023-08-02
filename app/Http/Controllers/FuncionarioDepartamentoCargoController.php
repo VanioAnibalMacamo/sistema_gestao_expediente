@@ -9,26 +9,38 @@ use App\Models\Departamento;
 use App\Models\Cargo;
 use App\Models\Alocacao;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class FuncionarioDepartamentoCargoController extends Controller
 {
 
     public function index()
     {
+        $user = Auth::user();
+        if ($user->can('view', FuncionarioDepartamentoCargo::class)) {
         $alocacoes = Alocacao::with('funcionario', 'departamento', 'cargo')->get();
         return view('gestao.alocacoes.index', compact('alocacoes'));
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para visualizar os FuncionarioDepartamentoCargos.');
     }
+}
 
     public function create()
     {
+        if (Auth::user()->can('create', FuncionarioDepartamentoCargo::class)){
         $funcionarios = Funcionario::all();
         $departamentos = Departamento::all();
         $cargos = Cargo::all();
         return view('gestao.alocacoes.create',compact('funcionarios','departamentos','cargos'));
+    } else {
+        return redirect()->back()->with('error', 'Você não tem permissão para criar um novo FuncionarioDepartamentoCargo.');
     }
+}
+
 
     public function saveAlocacoes(Request $request)
     {
+        if (Auth::user()->can('create', FuncionarioDepartamentoCargo::class)) {
         $funcionarioId = $request->input('funcionario_id');
         $departamentoId = $request->input('departamento_id');
         $cargoId = $request->input('cargo_id');
@@ -51,11 +63,17 @@ class FuncionarioDepartamentoCargoController extends Controller
         } else {
             return redirect()->route('funcDepCargoIndex')->with('successDelete', 'Alocacao Cadastrado com sucesso!');
         }
+    }else {
+        // O usuário não tem permissão, exibe uma mensagem de erro ou redireciona para outra página
+        return redirect()->back()->with('error', 'Você não tem permissão para criar um novo FuncionarioDepartamentoCargo.');
+    }
+    
+    
     }
 
     public function delete($id)
     {
-
+        if (Auth::user()->can('delete', FuncionarioDepartamentoCargo::class)) {
         $alocacao = Alocacao::find($id);
 
         if (!$alocacao) {
@@ -64,9 +82,13 @@ class FuncionarioDepartamentoCargoController extends Controller
         $alocacao->delete();
 
         return redirect()->route('funcDepCargoIndex')->with('successDelete', 'Alocação excluída com sucesso.');
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para apagar este FuncionarioDepartamentoCargo.');
     }
+}
 
     public function visualizar_view($id){
+        if (Auth::user()->can('view',FuncionarioDepartamentoCargo::class)) {
         $alocacao = Alocacao::find($id);
 
         if (!$alocacao) {
@@ -74,7 +96,10 @@ class FuncionarioDepartamentoCargoController extends Controller
         }
 
         return view('gestao.alocacoes.view', compact('alocacao'));
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para visualizar este FuncionarioDepartamentoCargo.');
     }
+}
 
     public function update_view($id){
         $alocacao = Alocacao::find($id);

@@ -9,23 +9,36 @@ use App\Models\Role;
 use App\Models\Estudante;
 use App\Models\Funcionario;
 use App\Models\Departamento;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
 
     public function index()
     {
+        $user = Auth::user();
+
+        if ($user->can('view',User::class)) {
         $users = User::with('roles')->paginate(10);
         return view('gestao.utilizadores.users.index', compact('users'));
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para visualizar os User.');
     }
+}
+
 
     public function create()
     {
+        
+    if (Auth::user()->can('create', User::class)){
         $roles = Role::all();
         $estudantes = Estudante::all();
         $funcionarios = Funcionario::all();
         return view('gestao.utilizadores.users.create', compact('roles', 'estudantes', 'funcionarios'));
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para criar um novo User.');
     }
+}
 
     public function store(Request $request)
     {
@@ -92,6 +105,7 @@ class UserController extends Controller
 
     public function visualizarView($id)
     {
+        if (Auth::user()->can('view',User::class)) {
         $user = User::findOrFail($id);
 
         if ($user->tipo_usuario === 'Estudante') {
@@ -105,20 +119,28 @@ class UserController extends Controller
             $usuarioNome = '-';
         }
         return view('gestao.utilizadores.users.view', compact('user','usuarioDetalhe', 'usuarioNome'));
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para visualizar este User.');
     }
+}
 
     public function updateView($id)
-    {
+    { 
+        if (Auth::user()->can('update', User::class)) {
         $user = User::findOrFail($id);
         $funcionarios = Funcionario::all();
         $estudantes = Estudante::all();
         $departamentos = Departamento::all();
         $roles = Role::all();
         return view('gestao.utilizadores.users.edit', compact('user','funcionarios','estudantes','departamentos','roles'));
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para editar este User.');
     }
+}
 
     public function update(Request $request, $id)
     {
+        if (Auth::user()->can('update', User::class)) {
         // Find the user by ID
         $user = User::findOrFail($id);
 
@@ -164,5 +186,7 @@ class UserController extends Controller
 
         // Redirect back to the users list with a success message
         return redirect()->route('users')->with('success', 'User updated successfully!');
-    }
+    }else {
+        return redirect()->back()->with('error', 'Você não tem permissão para editar este User.');
+    }}
 }
