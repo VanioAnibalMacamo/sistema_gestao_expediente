@@ -11,6 +11,9 @@
       @if (session('successDelete'))
           <div class="alert alert-danger">{{ session('successDelete') }}</div>
       @endif
+      @if (session('error'))
+         <div class="alert alert-danger">{{ session('error') }}</div>
+      @endif
     <h1>Estudantes</h1>
 @stop
 

@@ -131,12 +131,12 @@ public function update(Request $request, $id){
 
     public function visualizar_view($id){
 
-        if (Auth::user()->can('update',Estudante::class)) {
+        if (Auth::user()->can('view',Estudante::class)) {
 
-        $estudante = Estudante :: find($id);
-        return view('/estudante/view', compact('estudante'));
+            $estudante = Estudante :: find($id);
+            return view('/estudante/view', compact('estudante'));
         }else {
-            return redirect()->back()->with('error', 'Você não tem permissão para editar este Estudante.');
+            return redirect()->back()->with('error', 'Você não tem permissão para visualizar este Estudante.');
         }
     }
 
