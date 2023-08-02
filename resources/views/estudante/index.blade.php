@@ -15,7 +15,7 @@
 @stop
 
 @section('content')
-    
+
 
 <div class="d-flex flex-row-reverse align-items-end mb-3">
   <a href="{{ url('estudanteCreate') }}"  class="btn btn-primary">
@@ -24,9 +24,9 @@
 </div>
 
 <div class="card">
-            
 
-        
+
+
               <div class="card-body p-0">
                 <table class="table table-striped">
                   <thead>
@@ -41,34 +41,41 @@
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach ($estudantes as $estudante)
-                    <tr>
-                      <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $estudante->nome}}</td>
-                      <td>{{ $estudante->apelido}}</td>
-                      <td>{{ $estudante->codigo}}</td>
-                      <td>{{ $estudante->curso ? $estudante->curso->nome : 'Nenhum curso associado' }}</td>
-                      <td>{{ $estudante->contacto}}</td>
-                      <td>{{ $estudante->morada}}</td>
-                      <td> 
-                            <!-- Large modal -->
-                            <a  class="btn btn-primary btn-sm d-inline" href="{{url('visualizar_estudante',$estudante->id)}}"><i class="fas fa-eye"></i></a>
-                            <a class="btn btn-info btn-sm d-inline"  href="{{url('update_estudante',$estudante->id)}}"> <i class="fas fa-pencil-alt"></i></a>
-                           
-                            <form id="form-excluir-{{ $estudante->id }}" action="{{ route('estudantes.delete', ['id' => $estudante->id]) }}" method="POST" class="d-inline">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event, '{{ $estudante->nome }}', {{ $estudante->id }})"><i class="fas fa-trash"></i></button>
-                            </form>
+                    @php
+                    $count = 0;
+                @endphp
 
-                      </td>
+                @foreach ($estudantes as $estudante)
+                    @php
+                        $count++;
+                    @endphp
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>{{ $estudante->nome }}</td>
+                        <td>{{ $estudante->apelido }}</td>
+                        <td>{{ $estudante->codigo }}</td>
+                        <td>{{ $estudante->curso ? $estudante->curso->nome : 'Nenhum curso associado' }}</td>
+                        <td>{{ $estudante->contacto }}</td>
+                        <td>{{ $estudante->morada }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm d-inline" href="{{ url('visualizar_estudante', $estudante->id) }}"><i class="fas fa-eye"></i></a>
+                            <a class="btn btn-info btn-sm d-inline" href="{{ url('update_estudante', $estudante->id) }}"><i class="fas fa-pencil-alt"></i></a>
+
+                            <form id="form-excluir-{{ $estudante->id }}" action="{{ route('estudantes.delete', ['id' => $estudante->id]) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event, '{{ $estudante->nome }}', {{ $estudante->id }})"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
                     </tr>
-                   @endforeach
-                  </tbody>
-                </table>
-                {{ $estudantes->links('pagination::bootstrap-4') }}
+                @endforeach
+
+                @if ($count > 1)
+                    {{ $estudantes->links('pagination::bootstrap-4') }}
+                @endif
+
               </div>
-            </div>      
+            </div>
 @stop
 
 @section('css')
@@ -86,7 +93,7 @@
 <script>
     function confirmDelete(event, nome, formId) {
         event.preventDefault();
-        
+
         Swal.fire({
             title: 'Tem certeza que deseja excluir o Estudane ' + nome + '?',
             icon: 'warning',
@@ -97,7 +104,7 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('form-excluir-' + formId).submit(); 
+                document.getElementById('form-excluir-' + formId).submit();
             }
         });
     }

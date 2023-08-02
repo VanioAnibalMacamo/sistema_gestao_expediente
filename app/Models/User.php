@@ -50,6 +50,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+    public function hasRole($roleName)
+    {
+        return $this->roles->pluck('name')->contains($roleName);
+    }
 
     // Relacionamentos do modelo User
     public function userable()
