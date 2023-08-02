@@ -51,19 +51,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="tipo_expediente_id">Tipo de Expediente</label>
-                        <select class="form-control" id="tipo_expediente_id" name="tipo_expediente_id" disabled>
-                            <option value="">Selecione O Tipo de Expediente</option> <!-- Added "Select" option -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="tipo_expediente_id">Tipo de Expediente</label>
+                            <select class="form-control" id="tipo_expediente_id" name="tipo_expediente_id" disabled>
+                                <option value="">Selecione O Tipo de Expediente</option> <!-- Added "Select" option -->
 
-                            @foreach ($tiposExpediente as $tipoExpediente)
-                                <option value="{{ $tipoExpediente->id }}" {{ $tipoExpediente->id == $expediente->tipo_expediente_id ? 'selected' : '' }}>
-                                    {{ $tipoExpediente->nome }}
-                                </option>
-                             @endforeach
+                                @foreach ($tiposExpediente as $tipoExpediente)
+                                    <option value="{{ $tipoExpediente->id }}" {{ $tipoExpediente->id == $expediente->tipo_expediente_id ? 'selected' : '' }}>
+                                        {{ $tipoExpediente->nome }}
+                                    </option>
+                                @endforeach
 
-                        </select>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="tipo_expediente_id">Estágio do Processo</label> <br>
+                            <span class="badge badge-primary">{{ $expediente->estagioProcesso->nome }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
