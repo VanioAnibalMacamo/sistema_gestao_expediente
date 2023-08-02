@@ -63,14 +63,14 @@ Route::get('/visualizar_expediente/{id}',[App\Http\Controllers\ExpedienteControl
 Route::post('/visualizarExpediente/{id}',[App\Http\Controllers\ExpedienteController::class,'visualizar']);
 Route::delete('/expediente/{id}', 'App\Http\Controllers\ExpedienteController@delete')->name('expedientes.delete');
 
-Route::get('/estudanteIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('estudanteIndex');
-route::get('/estudanteCreate',[App\Http\Controllers\EstudanteController::class,'create'])->name('estudanteCreate');
-Route::post('/saveEstudante',[App\Http\Controllers\EstudanteController::class,'saveEstudante'])->middleware('web');
-Route::get('/update_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'update_view']);
-route::post('/updateEstudante/{id}',[App\Http\Controllers\EstudanteController::class,'update']);
-Route::get('/visualizar_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar_view']);
-Route::post('/visualizEstdante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar']);
-Route::delete('/estudante/{id}', 'App\Http\Controllers\DepartamentoController@delete')->name('estudantes.delete');
+Route::get('/estudanteIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('estudanteIndex')->middleware('can:view,App\Models\Estudante');
+route::get('/estudanteCreate',[App\Http\Controllers\EstudanteController::class,'create'])->name('estudanteCreate')->middleware('can:create,App\Models\Estudante');
+Route::post('/saveEstudante',[App\Http\Controllers\EstudanteController::class,'saveEstudante'])->middleware('web')->middleware('can:create,App\Models\Estudante');
+Route::get('/update_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'update_view'])->middleware('can:update,App\Models\Estudante');
+route::post('/updateEstudante/{id}',[App\Http\Controllers\EstudanteController::class,'update'])->middleware('can:update,App\Models\Estudante');
+Route::get('/visualizar_estudante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar_view'])->middleware('can:view,App\Models\Estudante');
+Route::post('/visualizEstdante/{id}',[App\Http\Controllers\EstudanteController::class,'visualizar'])->middleware('can:view,App\Models\Estudante');
+Route::delete('/estudante/{id}', 'App\Http\Controllers\EstudanteController@delete')->name('estudantes.delete')->middleware('can:delete,App\Models\Estudante');
 
 Route::get('/AlocacoesIndex', [App\Http\Controllers\AlocacoesController::class, 'index'])->name('AlocacoesIndex');
 route::get('/AlocacoesCreate',[App\Http\Controllers\AlocacoesController::class,'create'])->name('AlocacoeseCreate');
