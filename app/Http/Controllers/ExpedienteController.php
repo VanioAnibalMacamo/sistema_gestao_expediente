@@ -183,7 +183,7 @@ class ExpedienteController extends Controller
                     $expediente->save();
 
                     // Redirecionar o usuário para a página desejada após o avanço
-                    return redirect()->route('/expedienteIndex')->with('success', 'Expediente avançado com sucesso!');
+                    return redirect('/expedienteIndex')->with('mensagem', 'Expediente avançado com sucesso!');
                 } else {
                     return redirect()->back()->with('error', 'Não é possível avançar o Expediente, pois não há um Estágio sucessor definido.');
                 }
