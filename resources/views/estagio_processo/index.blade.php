@@ -9,6 +9,9 @@
       @if (session('successDelete'))
           <div class="alert alert-danger">{{ session('successDelete') }}</div>
       @endif
+      @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+      @endif
     <h1>Estagio de Processo</h1>
 @stop
 
@@ -33,7 +36,7 @@
                       <th>Nome</th>
                       <th>Descrição</th>
                       <th>Tempo Est. Conclusão</th>
-                      <th>Antecessor</th>
+                      <th>Sucessor</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,7 +50,7 @@
                         @if ($estagioProcesso->estagioProcessoFilho)
                             <span class="badge bg-success">{{ $estagioProcesso->estagioProcessoFilho->nome }}</span>
                         @else
-                            <span class="badge bg-danger">Nenhum estágio antecessor encontrado</span>
+                            <span class="badge bg-danger">Nenhum estágio sucessor encontrado</span>
                         @endif
                     </td>
 

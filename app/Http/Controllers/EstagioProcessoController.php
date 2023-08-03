@@ -6,7 +6,7 @@ use App\Models\EstagioProcesso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Expediente;
 
 class EstagioProcessoController extends Controller
 {
@@ -16,21 +16,8 @@ class EstagioProcessoController extends Controller
 
         if ($user->can('view', EstagioProcesso::class)) {
 
-           // Buscar o estágio inicial que não possui sucessor (raiz)
-            $estagioInicial = EstagioProcesso::whereNull('parent_estagio_processo_id')->first();
-
-            // Inicializar a coleção para armazenar os estágios ordenados
-            $estagiosOrdenados = collect();
-
-            if ($estagioInicial) {
-                // Chamar a função para ordenar os estágios
-                $this->ordenarEstagios($estagioInicial, $estagiosOrdenados);
-            }
-
-            // Inverter a coleção para exibir do final para o início
-            $estagiosOrdenados = $estagiosOrdenados->reverse();
-
-                return view('estagio_processo.index',['estagioProcessos' => $estagiosOrdenados]);
+            $estagioProcessos = EstagioProcesso::paginate(8);
+            return view('estagio_processo.index',['estagioProcessos' => $estagioProcessos]);
         }else {
             return redirect()->back()->with('error', 'Você não tem permissão para visualizar os Estagio do Processos.');
         }
@@ -40,10 +27,15 @@ class EstagioProcessoController extends Controller
         // Adicionar o estágio atual na coleção de estágios ordenados
         $estagiosOrdenados->push($estagio);
 
+        // Buscar os estágios filhos do estágio atual
+        $estagiosFilhos = EstagioProcesso::where('parent_estagio_processo_id', $estagio->id)->get();
+
         // Verificar se o estágio atual possui sucessor
-        if ($estagio->estagioProcessoFilho) {
-            // Se possuir sucessor, chamar a função recursivamente para ordenar o sucessor e seus sucessores
-            $this->ordenarEstagios($estagio->estagioProcessoFilho, $estagiosOrdenados);
+        if ($estagiosFilhos->count() > 0) {
+            foreach ($estagiosFilhos as $estagioFilho) {
+                // Se possuir sucessor, chamar a função recursivamente para ordenar o sucessor e seus sucessores
+                $this->ordenarEstagios($estagioFilho, $estagiosOrdenados);
+            }
         }
     }
 
@@ -118,22 +110,31 @@ class EstagioProcessoController extends Controller
 
     public function visualizar_view($id){
         if (Auth::user()->can('view' ,EstagioProcesso::class)) {
-        $estagioProcesso = EstagioProcesso::findOrFail($id);
-        return view('/estagio_processo/view', compact('estagioProcesso'));
+            $estagioProcesso = EstagioProcesso::findOrFail($id);
+            return view('/estagio_processo/view', compact('estagioProcesso'));
 
-    }else {
-        return redirect()->back()->with('error', 'Você não tem permissão para visualizar este Estagio do Processo.');
+        }else {
+            return redirect()->back()->with('error', 'Você não tem permissão para visualizar este Estagio do Processo.');
+        }
     }
-}
     public function delete($id)
     {
         if (Auth::user()->can('delete', EstagioProcesso::class)) {
-        $estagioProcesso = EstagioProcesso::findOrFail($id);
-        $estagioProcesso->delete();
+            $estagioProcesso = EstagioProcesso::findOrFail($id);
 
-        return redirect('/est_proIndex')->with('successDelete', 'Estágio do Processo excluído com sucesso!');
-    }else {
-        return redirect()->back()->with('error', 'Você não tem permissão para apagar este Estagio do Processo.');
+            // Verificar se o Estágio de Processo está sendo usado em algum Expediente
+            $existeExpedienteComEstagio = Expediente::where('estagio_processo_id', $id)->exists();
+
+            if ($existeExpedienteComEstagio) {
+                return redirect()->back()->with('error', 'Não é possível apagar o Estágio de Processo, pois está sendo usado em algum Expediente.');
+            }
+
+            // Se não estiver sendo usado em nenhum Expediente, pode prosseguir com a exclusão
+            $estagioProcesso->delete();
+
+            return redirect('/est_proIndex')->with('successDelete', 'Estágio do Processo excluído com sucesso!');
+        } else {
+            return redirect()->back()->with('error', 'Você não tem permissão para apagar este Estágio do Processo.');
+        }
     }
-}
 }
