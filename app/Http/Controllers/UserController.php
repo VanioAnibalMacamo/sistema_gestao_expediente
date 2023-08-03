@@ -22,14 +22,14 @@ class UserController extends Controller
         $users = User::with('roles')->paginate(10);
         return view('gestao.utilizadores.users.index', compact('users'));
     }else {
-        return redirect()->back()->with('error', 'Você não tem permissão para visualizar os User.');
+        return redirect()->back()->with('error', 'Você não tem permissão para visualizar os Users.');
     }
 }
 
 
     public function create()
     {
-        
+
     if (Auth::user()->can('create', User::class)){
         $roles = Role::all();
         $estudantes = Estudante::all();
@@ -125,7 +125,7 @@ class UserController extends Controller
 }
 
     public function updateView($id)
-    { 
+    {
         if (Auth::user()->can('update', User::class)) {
         $user = User::findOrFail($id);
         $funcionarios = Funcionario::all();
