@@ -171,30 +171,22 @@ class ExpedienteController extends Controller
 
         public function avancarExpediente($id)
         {
-            // Buscar o expediente pelo ID
-            $expediente = Expediente::findOrFail($id);
 
-            // Get the currently logged-in user
+            $expediente = Expediente::findOrFail($id);
             $user = Auth::user();
 
-            // Check if the user is a Funcionario
             if ($user->userable_type !== 'App\Models\Funcionario') {
                 return redirect()->back()->with('error', 'Você não tem permissão para avançar o expediente.');
             }
 
-            // Get the department associated with the user
             $department = $user->funcionario->departamentos->first();
 
-            // Check if the TipoExpediente is associated with the user's department
             if (!$expediente->tipoExpediente || $expediente->tipoExpediente->departamento_id !== $department->id) {
                 return redirect()->back()->with('error', 'Você não tem permissão para avançar este expediente.');
             }
 
-            // Verificar se o expediente possui um estágio de processo associado
             if ($expediente->estagioProcesso) {
-                // Verificar se o estágio atual possui um estágio sucessor
                 if ($expediente->estagioProcesso->estagioProcessoFilho) {
-                    // Verificar se o estágio sucessor pertence aos estágios disponíveis do TipoExpediente
                     $estagiosDisponiveis = $expediente->tipoExpediente->estagiosProcesso->pluck('id')->toArray();
                     $proximoEstagioId = $expediente->estagioProcesso->estagioProcessoFilho->id;
 
@@ -202,11 +194,8 @@ class ExpedienteController extends Controller
                         return redirect()->back()->with('error', 'Não é possível avançar o Expediente, pois o próximo estágio não está disponível para este Tipo de Expediente.');
                     }
 
-                    // Avançar o expediente para o estágio sucessor
                     $expediente->estagio_processo_id = $proximoEstagioId;
                     $expediente->save();
-
-                    // Redirecionar o usuário para a página desejada após o avanço
                     return redirect('/expedienteIndex')->with('mensagem', 'Expediente avançado com sucesso!');
                 } else {
                     return redirect()->back()->with('error', 'Não é possível avançar o Expediente, pois não há um Estágio sucessor definido.');
