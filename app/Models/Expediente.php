@@ -26,4 +26,10 @@ class Expediente extends Model
         return $this->belongsTo(Estudante::class);
     }
 
+    public function funcionarios()
+    {
+        return $this->belongsToMany(Funcionario::class, 'funcionario_comentario_expediente')
+            ->withPivot('comentario', 'data_comentario');
+    }
+
 }

@@ -34,4 +34,10 @@ class Funcionario extends Model
     {
         return $this->hasOne(Alocacao::class, 'funcionario_id');
     }
+
+    public function expedientes()
+    {
+        return $this->belongsToMany(Expediente::class, 'funcionario_comentario_expediente')
+            ->withPivot('comentario', 'data_comentario');
+    }
 }
