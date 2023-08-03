@@ -43,7 +43,7 @@ class EstagioProcessoController extends Controller
     public function create()
     {
         if (Auth::user()->can('create', EstagioProcesso::class)){
-        $estagiosDisponiveis = EstagioProcesso::whereDoesntHave('estagioProcessoPai')->get();
+        $estagiosDisponiveis = EstagioProcesso::whereDoesntHave('estagioProcessoFilho')->get();
         return view('estagio_processo.create', ['estagiosDisponiveis' => $estagiosDisponiveis]);
     }else {
         return redirect()->back()->with('error', 'Você não tem permissão para criar um novo Estagio do Processo.');
@@ -77,7 +77,7 @@ class EstagioProcessoController extends Controller
     {
         if (Auth::user()->can('update', EstagioProcesso::class)) {
         $estagioProcesso = EstagioProcesso::findOrFail($id);
-        $estagiosDisponiveis = EstagioProcesso::whereDoesntHave('estagioProcessoPai')->get();
+        $estagiosDisponiveis = EstagioProcesso::whereDoesntHave('estagioProcessoFilho')->get();
 
         return view('estagio_processo.edit', ['estagioProcesso' => $estagioProcesso, 'estagiosDisponiveis' => $estagiosDisponiveis]);
     } else {

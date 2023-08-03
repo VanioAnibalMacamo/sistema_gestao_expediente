@@ -136,7 +136,7 @@
                 </div>
                 <div class="card-body">
                     <button type="submit" class="btn btn-success">Adicionar Comentário</button>
-                    <button type="button" class="btn btn-info" id="btnAvancarExpediente">Avançar Expediente</button>
+                    <button type="submit" formaction="{{ route('avancar.expediente', $expediente->id) }}" class="btn btn-info" id="btnAvancarExpediente">Avançar Expediente</button>
                 </div>
             </div>
         </form>

@@ -168,4 +168,27 @@ class ExpedienteController extends Controller
                 return redirect()->back()->with('error', 'Você não tem permissão para visualizar os detalhes deste Funcionário.');
             }
         }
+
+        public function avancarExpediente($id)
+        {
+            // Buscar o expediente pelo ID
+            $expediente = Expediente::findOrFail($id);
+
+            // Verificar se o expediente possui um estágio de processo associado
+            if ($expediente->estagioProcesso) {
+                // Verificar se o estágio atual possui um estágio sucessor
+                if ($expediente->estagioProcesso->estagioProcessoFilho) {
+                    // Avançar o expediente para o estágio sucessor
+                    $expediente->estagio_processo_id = $expediente->estagioProcesso->estagioProcessoFilho->id;
+                    $expediente->save();
+
+                    // Redirecionar o usuário para a página desejada após o avanço
+                    return redirect()->route('/expedienteIndex')->with('success', 'Expediente avançado com sucesso!');
+                } else {
+                    return redirect()->back()->with('error', 'Não é possível avançar o Expediente, pois não há um Estágio sucessor definido.');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Não é possível avançar o Expediente, pois não há um Estágio de Processo associado a ele.');
+            }
+        }
 }

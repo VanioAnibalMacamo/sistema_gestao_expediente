@@ -33,9 +33,9 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="estagio_processo_pai_id">Estágio Sucessor</label>
+                    <label for="estagio_processo_pai_id">Estágio Antecessor</label>
                     <select class="form-control" id="estagio_processo_pai_id" name="parent_estagio_processo_id">
-                        <option value="">Selecione o Estágio Sucessor</option>
+                        <option value="">Selecione o Estágio Antecessor</option>
                         @foreach ($estagiosDisponiveis as $estagioDisponivel)
                             <option value="{{ $estagioDisponivel->id }}" {{ $estagioProcesso->estagioProcessoPai && $estagioProcesso->estagioProcessoPai->id === $estagioDisponivel->id ? 'selected' : '' }}>{{ $estagioDisponivel->nome }}</option>
                         @endforeach
