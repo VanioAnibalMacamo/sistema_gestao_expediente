@@ -43,7 +43,13 @@
                             <td>{{ $expediente->data_submissao }}</td>
                             <td>{{ $expediente->estudante->nome." ".$expediente->estudante->apelido }}</td>
                             <td>{{ $expediente->tipoExpediente->nome }}</td>
-                            <td><span class="badge badge-primary">{{ $expediente->estagioProcesso->nome }}</span></td>
+                            <td>
+                                @if ($expediente->estagioProcesso)
+                                    <span class="badge badge-primary">{{ $expediente->estagioProcesso->nome }}</span>
+                                @else
+                                    <span class="badge badge-danger">Sem Estágio de Processo</span>
+                                @endif
+                            </td>
 
                             <td>
                                 <!-- Actions -->

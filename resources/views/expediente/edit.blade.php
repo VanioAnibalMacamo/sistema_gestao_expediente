@@ -77,7 +77,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="tipo_expediente_id">Estágio do Processo</label> <br>
-                            <span class="badge badge-primary">{{ $expediente->estagioProcesso->nome }}</span>
+                            @if ($expediente->estagioProcesso)
+                                <span class="badge badge-primary">{{ $expediente->estagioProcesso->nome }}</span>
+                            @else
+                                <span class="badge badge-danger">Sem Estágio de Processo</span>
+                            @endif
                         </div>
                     </div>
                 </div>
