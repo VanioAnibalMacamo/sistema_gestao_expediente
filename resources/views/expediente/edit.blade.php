@@ -82,10 +82,12 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <input type="submit" class="btn btn-primary" value="Salvar">
+            <div class="card-footer d-flex justify-content-center">
+                <input type="submit" class="btn btn-primary mr-2" value="Salvar">
                 <a href="{{ url('/expedienteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
             </div>
+
+
         </form>
         <div class="card mt-4">
             <div class="card-header">

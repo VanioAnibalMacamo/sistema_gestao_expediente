@@ -135,31 +135,37 @@ class ExpedienteController extends Controller
 
     public function adicionarComentario(Request $request, $id)
     {
-        // Encontre o expediente pelo ID
-        $expediente = Expediente::findOrFail($id);
 
-        // Verifique se o funcionário está autenticado
-        if (Auth::check()) {
-            // Obtenha o funcionário associado ao usuário logado
-            $funcionario = Auth::user()->funcionario;
+        if (Auth::user()->can('update', Expediente::class)) {
+             // Encontre o expediente pelo ID
+            $expediente = Expediente::findOrFail($id);
 
-            // Se o funcionário existir, adicione o comentário
-            if ($funcionario) {
-                $comentario = $request->input('comentarios');
-                $dataComentario = now(); // ou use Carbon para formatar a data
+            // Verifique se o funcionário está autenticado
+            if (Auth::check()) {
+                // Obtenha o funcionário associado ao usuário logado
+                $funcionario = Auth::user()->funcionario;
 
-                // Use o relacionamento expedientes() para adicionar o comentário à tabela pivot
-                $expediente->funcionarios()->attach($funcionario->id, [
-                    'comentario' => $comentario,
-                    'data_comentario' => $dataComentario,
-                ]);
+                // Se o funcionário existir, adicione o comentário
+                if ($funcionario) {
+                    $comentario = $request->input('comentarios');
+                    $dataComentario = now(); // ou use Carbon para formatar a data
 
-                // Redirecione de volta para a página de edição do expediente
-                return redirect()->back()->with('success', 'Comentário adicionado com sucesso!');
+                    // Use o relacionamento expedientes() para adicionar o comentário à tabela pivot
+                    $expediente->funcionarios()->attach($funcionario->id, [
+                        'comentario' => $comentario,
+                        'data_comentario' => $dataComentario,
+                    ]);
+
+                    // Redirecione de volta para a página de edição do expediente
+                    return redirect()->back()->with('success', 'Comentário adicionado com sucesso!');
+                }
+            }
+
+            // Redirecione para algum lugar ou retorne um erro caso o funcionário não esteja autenticado
+            return redirect()->back()->with('error', 'Você não tem permissão para adicionar um comentário a este expediente.');
+
+            }else {
+                return redirect()->back()->with('error', 'Você não tem permissão para visualizar os detalhes deste Funcionário.');
             }
         }
-
-        // Redirecione para algum lugar ou retorne um erro caso o funcionário não esteja autenticado
-        return redirect()->back()->with('error', 'Você não tem permissão para adicionar um comentário a este expediente.');
-    }
 }
