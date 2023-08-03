@@ -63,21 +63,8 @@
                                 <option value="{{ $tipoExpediente->id }}">{{ $tipoExpediente->nome }}</option>
                             @endforeach
                         </select>
-
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="comentarios">Comentário</label>
-                            <textarea class="form-control" id="comentarios" name="comentarios"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <button type="button" class="btn btn-success" id="btnAddComentario">Adicionar Comentário</button>
-                <button type="button" class="btn btn-info" id="btnAvancarExpediente">Avançar Expediente</button>
             </div>
             <div class="card-footer">
                 <input type="submit" class="btn btn-primary" value="Salvar">
