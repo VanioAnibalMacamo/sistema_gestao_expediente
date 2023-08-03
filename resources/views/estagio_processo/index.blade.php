@@ -33,7 +33,7 @@
                       <th>Nome</th>
                       <th>Descrição</th>
                       <th>Tempo Est. Conclusão</th>
-                      <th>Sucessor</th>
+                      <th>Antecessor</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,7 +47,7 @@
                         @if ($estagioProcesso->estagioProcessoFilho)
                             <span class="badge bg-success">{{ $estagioProcesso->estagioProcessoFilho->nome }}</span>
                         @else
-                            <span class="badge bg-danger">Nenhum estágio sucessor encontrado</span>
+                            <span class="badge bg-danger">Nenhum estágio antecessor encontrado</span>
                         @endif
                     </td>
 
@@ -68,7 +68,7 @@
                    @endforeach
                   </tbody>
                 </table>
-                {{ $estagioProcessos->links('pagination::bootstrap-4') }}
+
               </div>
             </div>
 @stop

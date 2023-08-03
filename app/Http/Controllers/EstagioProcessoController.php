@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\EstagioProcesso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class EstagioProcessoController extends Controller
 {
@@ -13,12 +15,37 @@ class EstagioProcessoController extends Controller
     {    $user = Auth::user();
 
         if ($user->can('view', EstagioProcesso::class)) {
-        $estagioProcessos = EstagioProcesso::paginate(8);
-        return view('estagio_processo.index',['estagioProcessos' => $estagioProcessos]);
-    }else {
-        return redirect()->back()->with('error', 'Você não tem permissão para visualizar os Estagio do Processos.');
+
+           // Buscar o estágio inicial que não possui sucessor (raiz)
+            $estagioInicial = EstagioProcesso::whereNull('parent_estagio_processo_id')->first();
+
+            // Inicializar a coleção para armazenar os estágios ordenados
+            $estagiosOrdenados = collect();
+
+            if ($estagioInicial) {
+                // Chamar a função para ordenar os estágios
+                $this->ordenarEstagios($estagioInicial, $estagiosOrdenados);
+            }
+
+            // Inverter a coleção para exibir do final para o início
+            $estagiosOrdenados = $estagiosOrdenados->reverse();
+
+                return view('estagio_processo.index',['estagioProcessos' => $estagiosOrdenados]);
+        }else {
+            return redirect()->back()->with('error', 'Você não tem permissão para visualizar os Estagio do Processos.');
+        }
     }
-}
+    public function ordenarEstagios($estagio, &$estagiosOrdenados)
+    {
+        // Adicionar o estágio atual na coleção de estágios ordenados
+        $estagiosOrdenados->push($estagio);
+
+        // Verificar se o estágio atual possui sucessor
+        if ($estagio->estagioProcessoFilho) {
+            // Se possuir sucessor, chamar a função recursivamente para ordenar o sucessor e seus sucessores
+            $this->ordenarEstagios($estagio->estagioProcessoFilho, $estagiosOrdenados);
+        }
+    }
 
 
     public function create()
