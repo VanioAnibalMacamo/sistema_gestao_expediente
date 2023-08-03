@@ -11,7 +11,7 @@ class EstagioProcessoController extends Controller
 
     public function index()
     {    $user = Auth::user();
-        
+
         if ($user->can('view', EstagioProcesso::class)) {
         $estagioProcessos = EstagioProcesso::paginate(8);
         return view('estagio_processo.index',['estagioProcessos' => $estagioProcessos]);
@@ -33,7 +33,7 @@ class EstagioProcessoController extends Controller
 
     public function saveEstagioProcesso(Request $request)
     {
-        
+
      if (Auth::user()->can('create', EstagioProcesso::class)) {
         $request->validate([
             'nome' => 'required',
@@ -88,9 +88,9 @@ class EstagioProcessoController extends Controller
         return redirect()->back()->with('error', 'Você não tem permissão para editar este Estagio do Processo.');
     }}
 
-    
+
     public function visualizar_view($id){
-        if (Auth::user()->can('view',EstagioProcesso::class)) {
+        if (Auth::user()->can('view' ,EstagioProcesso::class)) {
         $estagioProcesso = EstagioProcesso::findOrFail($id);
         return view('/estagio_processo/view', compact('estagioProcesso'));
 

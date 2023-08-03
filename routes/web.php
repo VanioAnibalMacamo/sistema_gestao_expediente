@@ -48,7 +48,7 @@ Route::delete('/departamento/{id}', 'App\Http\Controllers\DepartamentoController
 Route::get('/est_proIndex', [App\Http\Controllers\EstagioProcessoController::class, 'index'])->name('est_proIndex')->middleware('can:view,App\Models\EstagioProcesso');
 Route::get('/estProCreate', [App\Http\Controllers\EstagioProcessoController::class, 'create'])->name('estProCreate')->middleware('can:create,App\Models\EstagioProcesso');
 Route::post('/saveEstagioProcesso',[App\Http\Controllers\EstagioProcessoController::class,'saveEstagioProcesso'])->middleware('web')->middleware('can:create,App\Models\EstagioProcesso');
-Route::get('/update_est_processo/{id}',[App\Http\Controllers\EstagioProcessoController::class,'update_view'])->middleware('can:updaye,App\Models\EstagioProcesso');
+Route::get('/update_est_processo/{id}',[App\Http\Controllers\EstagioProcessoController::class,'update_view'])->middleware('can:update,App\Models\EstagioProcesso');
 Route::post('/updateEstagioProcesso/{id}',[App\Http\Controllers\EstagioProcessoController::class,'update'])->middleware('can:update,App\Models\EstagioProcesso');
 Route::get('/visualizar_est_processo/{id}',[App\Http\Controllers\EstagioProcessoController::class,'visualizar_view'])->middleware('can:view,App\Models\EstagioProcesso');
 Route::post('/visualizarEstPro/{id}',[App\Http\Controllers\EstagioProcessoController::class,'visualizar'])->middleware('can:view,App\Models\EstagioProcesso');
