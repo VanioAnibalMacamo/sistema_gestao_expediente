@@ -34,9 +34,9 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="estagio_processo_pai_id">Estágio Sucessor</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="{{  $estagioProcesso->estagioProcessoFilho->nome }}" disabled>
-
+                    <input type="text" class="form-control" id="nome" name="nome" value="{{ optional($estagioProcesso->estagioProcessoFilho)->nome }}" disabled>
                 </div>
+
             </div>
             <!-- /.card-body -->
 
