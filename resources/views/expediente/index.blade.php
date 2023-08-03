@@ -3,11 +3,11 @@
 @section('title', 'Expedientes')
 
 @section('content_header')
-    @if (session('mensagem'))
-        <div class="alert alert-success">{{ session('mensagem') }}</div>
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    @if (session('successDelete'))
-        <div class="alert alert-danger">{{ session('successDelete') }}</div>
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('erroe') }}</div>
     @endif
     <h1>Expedientes</h1>
 @stop

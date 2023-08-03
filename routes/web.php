@@ -63,6 +63,8 @@ Route::get('/visualizar_expediente/{id}',[App\Http\Controllers\ExpedienteControl
 Route::post('/visualizarExpediente/{id}',[App\Http\Controllers\ExpedienteController::class,'visualizar'])->middleware('can:view,App\Models\Expediente');
 Route::delete('/expediente/{id}', 'App\Http\Controllers\ExpedienteController@delete')->name('expedientes.delete')->middleware('can:delete,App\Models\Expediente');
 
+Route::post('adicionarComentario/{id}', 'App\Http\Controllers\ExpedienteController@adicionarComentario')->name('adicionar.comentario');
+
 Route::get('/estudanteIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('estudanteIndex')->middleware('can:view,App\Models\Estudante');
 route::get('/estudanteCreate',[App\Http\Controllers\EstudanteController::class,'create'])->name('estudanteCreate')->middleware('can:create,App\Models\Estudante');
 Route::post('/saveEstudante',[App\Http\Controllers\EstudanteController::class,'saveEstudante'])->middleware('web')->middleware('can:create,App\Models\Estudante');

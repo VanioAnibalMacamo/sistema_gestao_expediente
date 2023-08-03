@@ -56,6 +56,34 @@
                     </div>
                 </div>
             </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3 class="card-title">Histórico do Expediente</h3>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Comentário</th>
+                                <th>Funcionário</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($comentariosExpediente as $comentario)
+                            <tr>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ $comentario->pivot->comentario }}</td>
+                                <td>{{ $comentario->nome }}</td>
+                                <td>{{ $comentario->pivot->data_comentario }}</td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="card-footer">
             <a href="{{ url('/expedienteIndex') }}" type="button" class="btn btn-warning">Voltar</a>

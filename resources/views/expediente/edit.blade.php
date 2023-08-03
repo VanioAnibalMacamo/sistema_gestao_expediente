@@ -4,6 +4,13 @@
 
 @section('content_header')
     <h1>Editar Expediente</h1>
+
+    @if (session('success'))
+         <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
 @stop
 
 @section('content')
@@ -74,25 +81,64 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="comentarios">Comentário</label>
-                            <textarea class="form-control" id="comentarios" name="comentarios"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <button type="button" class="btn btn-success" id="btnAddComentario">Adicionar Comentário</button>
-                <button type="button" class="btn btn-info" id="btnAvancarExpediente">Avançar Expediente</button>
             </div>
             <div class="card-footer">
                 <input type="submit" class="btn btn-primary" value="Salvar">
                 <a href="{{ url('/expedienteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
             </div>
         </form>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3 class="card-title">Histórico do Expediente</h3>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Comentário</th>
+                            <th>Funcionário</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($comentariosExpediente as $comentario)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $comentario->pivot->comentario }}</td>
+                            <td>{{ $comentario->nome }}</td>
+                            <td>{{ $comentario->pivot->data_comentario }}</td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <form id="formAddComentario" action="{{ route('adicionar.comentario', $expediente->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="card card-primary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="comentarios">Comentário</label>
+                                <textarea class="form-control" id="comentarios" name="comentarios"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <button type="submit" class="btn btn-success">Adicionar Comentário</button>
+                    <button type="button" class="btn btn-info" id="btnAvancarExpediente">Avançar Expediente</button>
+                </div>
+            </div>
+        </form>
+
+
     </div>
+
+
     <!-- /.card -->
 @stop
 
@@ -101,5 +147,11 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script>
+    setTimeout(function() {
+        document.querySelector('.alert').remove();
+    }, 5000);
+</script>
+
 @stop
+
