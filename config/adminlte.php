@@ -305,6 +305,12 @@ return [
 
         ['header' => 'account_settings'],
         [
+            'text' => 'Dashboard',
+            'url'  => 'home',
+            'icon' => 'fas fa-tachometer-alt',
+        ],
+
+        [
             'text'=> 'Estudantes',
             'url'=> 'estudanteIndex',
             'icon'=> 'fas fa-user-graduate',
