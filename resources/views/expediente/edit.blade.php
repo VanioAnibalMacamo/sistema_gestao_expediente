@@ -87,8 +87,8 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-center">
-                <input type="submit" class="btn btn-primary mr-2" value="Salvar">
-                <a href="{{ url('/expedienteIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
+                <input type="submit" class="btn btn-primary mr-2" value="Actualizar">
+                <a href="{{ url('/expedienteIndex') }}" type="button" class="btn btn-warning">Voltar</a>
             </div>
 
 
