@@ -60,6 +60,26 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <div>
+                                <label>Documentos:</label>
+                                <br>
+                                @if ($expediente->documentos->isEmpty())
+                                    <span class="badge badge-danger">Sem Documentos</span>
+                                @else
+                                    @foreach ($expediente->documentos as $documento)
+                                        <span class="badge badge-primary">{{ $documento->nome_original }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="card mt-4">
                 <div class="card-header">
                     <h3 class="card-title">Histórico do Expediente</h3>
