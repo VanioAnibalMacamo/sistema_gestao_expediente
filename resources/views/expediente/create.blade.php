@@ -42,15 +42,22 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="estudante_id">Estudante</label>
-                            <select class="form-control" id="estudante_id" name="estudante_id">
-                                <option value="">Selecione o Estudante</option> <!-- Adicionada opção "Select" -->
-
-                                @foreach ($estudantes as $estudante)
-                                    <option value="{{  $estudante->id }}">{{ $estudante->codigo." - ".$estudante->nome." ".$estudante->apelido }}"</option>
-                                @endforeach
+                            <select class="form-control" id="estudante_id" name="estudante_id"
+                                @if (auth()->user()->tipo_usuario === 'Estudante') disabled @endif>
+                                @if (auth()->user()->tipo_usuario === 'Estudante')
+                                    <option value="{{ auth()->user()->userable->id }}" selected>
+                                        {{ auth()->user()->userable->codigo }} - {{ auth()->user()->userable->nome }} {{ auth()->user()->userable->apelido }}
+                                    </option>
+                                @else
+                                    <option value="">Selecione o Estudante</option> <!-- Adicionada opção "Select" -->
+                                    @foreach ($estudantes as $estudante)
+                                        <option value="{{ $estudante->id }}">{{ $estudante->codigo." - ".$estudante->nome." ".$estudante->apelido }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
+
 
                 </div>
                 <div class="col-md-6">
