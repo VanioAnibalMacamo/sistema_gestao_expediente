@@ -91,30 +91,45 @@
                     </div>
                 </div>
                <div class="row">
-            @if(auth()->user()->userable instanceof \App\Models\Funcionario)
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <label for="formFileMultiple" class="form-label">Documento(s)</label>
-                            <input class="form-control" type="file" id="formFileMultiple" multiple>
+                    @if(auth()->user()->userable instanceof \App\Models\Funcionario)
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="formFileMultiple" class="form-label">Documento(s)</label>
+                                    <input class="form-control" type="file" name="documentos[]" id="formFileMultiple" multiple>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="mb-3">
+                                <div>
+                                    <label>Documentos:</label>
+                                    <br>
+                                    @if ($expediente->documentos->isEmpty())
+                                        <span class="badge badge-danger">Sem Documentos</span>
+                                    @else
+                                        @foreach ($expediente->documentos as $documento)
+                                            <span class="badge badge-primary">{{ $documento->nome_original }}</span>
+                                        @endforeach
+                                    @endif
+                                    <br>
+                                    @if ($expediente->documentos->isNotEmpty())
+                                        <a href="{{ route('download.documentos', ['id' => $expediente->id]) }}" class="btn btn-primary">
+                                            <i class="fas fa-download"></i> Baixar Documentos
+                                        </a>
+                                    @else
+                                        <button class="btn btn-primary" disabled>
+                                            <i class="fas fa-download"></i> Baixar Documentos
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endif
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="mb-3">
-                        <div>
-                                <p>Nome do Documento: meu_documento.pdf</p>
-                                <a href="caminho_do_seu_documento.pdf" download class="btn btn-primary">
-                                    <i class="fas fa-download"></i> Baixar Documento
-                                </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-</div>
 
+                </div>
             </div>
             <div class="card-footer d-flex justify-content-center">
                 <input type="submit" class="btn btn-primary mr-2" value="Actualizar">

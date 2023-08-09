@@ -65,6 +65,7 @@ Route::delete('/expediente/{id}', 'App\Http\Controllers\ExpedienteController@del
 
 Route::post('adicionarComentario/{id}', 'App\Http\Controllers\ExpedienteController@adicionarComentario')->name('adicionar.comentario');
 Route::post('/avancar-expediente/{id}', 'App\Http\Controllers\ExpedienteController@avancarExpediente')->name('avancar.expediente');
+Route::get('/expediente/{id}/download-documentos', [App\Http\Controllers\ExpedienteController::class, 'downloadDocumentos'])->name('download.documentos');
 
 Route::get('/estudanteIndex', [App\Http\Controllers\EstudanteController::class, 'index'])->name('estudanteIndex')->middleware('can:view,App\Models\Estudante');
 route::get('/estudanteCreate',[App\Http\Controllers\EstudanteController::class,'create'])->name('estudanteCreate')->middleware('can:create,App\Models\Estudante');

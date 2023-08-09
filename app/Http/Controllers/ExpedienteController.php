@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Expediente;
 use App\Models\TipoExpediente;
 use App\Models\Estudante;
+use App\Models\Documento;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use ZipArchive;
 
 class ExpedienteController extends Controller
 {
@@ -107,13 +109,35 @@ class ExpedienteController extends Controller
     public function update(Request $request, $id)
     {
         if (Auth::user()->can('update', Expediente::class)) {
-        $expediente = Expediente::find($id);
-        $expediente->nome = $request->input('nome');
-        $expediente->descricao = $request->input('descricao');
-        $expediente->data_submissao = $request->input('data_submissao');
-       // $expediente->tipo_expediente_id = $request->input('tipo_expediente_id');
-        $expediente->estudante_id = $request->input('estudante_id');
-        $expediente->save();
+            $expediente = Expediente::find($id);
+            $expediente->nome = $request->input('nome');
+            $expediente->descricao = $request->input('descricao');
+            $expediente->data_submissao = $request->input('data_submissao');
+            $expediente->estudante_id = $request->input('estudante_id');
+            $expediente->save();
+
+            // Upload de documentos com identificador único
+            $documentFolderPath = 'c://sistema_gestao_expedientes//documentos//';
+            if (!file_exists($documentFolderPath)) {
+                mkdir($documentFolderPath, 0777, true);
+            }
+
+            if ($request->hasFile('documentos')) {
+                foreach ($request->file('documentos') as $documento) {
+                    $documentoNomeUnico = uniqid('expediente_') . '_' . $documento->getClientOriginalName();
+                    $documentoOriginal = $documento->getClientOriginalName();
+
+                    $documentoModel = new Documento([
+                        'nome_unico' => $documentoNomeUnico,
+                        'nome_original' => $documentoOriginal,
+                    ]);
+
+                    $expediente->documentos()->save($documentoModel);
+
+                    $documento->move($documentFolderPath, $documentoNomeUnico);
+                }
+            }
+
 
         return redirect('/expedienteIndex')->with('mensagem', 'Expediente actualizado com sucesso!');
     }else {
@@ -205,28 +229,24 @@ class ExpedienteController extends Controller
             }
         }
 
-/*
-        public function avancarExpediente($id)
+        public function downloadDocumentos($id)
         {
-            // Buscar o expediente pelo ID
             $expediente = Expediente::findOrFail($id);
+            $documentos = $expediente->documentos;
 
-            // Verificar se o expediente possui um estágio de processo associado
-            if ($expediente->estagioProcesso) {
-                // Verificar se o estágio atual possui um estágio sucessor
-                if ($expediente->estagioProcesso->estagioProcessoFilho) {
-                    // Avançar o expediente para o estágio sucessor
-                    $expediente->estagio_processo_id = $expediente->estagioProcesso->estagioProcessoFilho->id;
-                    $expediente->save();
+            $zipFileName = 'documentos_expediente_' . $expediente->nome.' '.$expediente->estudante->nome.'.zip';
+            $zipPath = storage_path('app/public/' . $zipFileName);
 
-                    // Redirecionar o usuário para a página desejada após o avanço
-                    return redirect('/expedienteIndex')->with('mensagem', 'Expediente avançado com sucesso!');
-                } else {
-                    return redirect()->back()->with('error', 'Não é possível avançar o Expediente, pois não há um Estágio sucessor definido.');
+            $zip = new ZipArchive();
+            if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
+                foreach ($documentos as $documento) {
+                    $documentoPath = 'c://sistema_gestao_expedientes//documentos//' . $documento->nome_unico;
+                    $zip->addFile($documentoPath, $documento->nome_original);
                 }
-            } else {
-                return redirect()->back()->with('error', 'Não é possível avançar o Expediente, pois não há um Estágio de Processo associado a ele.');
+                $zip->close();
             }
+
+            return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
         }
-*/
+
 }

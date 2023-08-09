@@ -32,4 +32,9 @@ class Expediente extends Model
             ->withPivot('comentario', 'data_comentario');
     }
 
+    public function documentos()
+    {
+        return $this->hasMany(Documento::class);
+    }
+
 }
