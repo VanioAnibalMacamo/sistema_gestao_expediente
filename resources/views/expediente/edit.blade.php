@@ -67,13 +67,19 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="tipo_expediente_id">Estudante</label>
-                                                    <select class="form-control" id="estudante_id" name="estudante_id">
-                                                        <option value="">Selecione O Estudante</option> <!-- Added "Select" option -->
-
-                                                        @foreach ($estudantes as $estudante)
-                                                            <option value="{{ $estudante->id }}" {{ $estudante->id == $expediente->estudante_id ? 'selected' : '' }}>{{ $estudante->codigo." - ".$estudante->nome." ".$estudante->apelido }}</option>
-                                                        @endforeach
+                                                    <label for="estudante_id">Estudante</label>
+                                                    <select class="form-control" id="estudante_id" name="estudante_id"
+                                                        @if (auth()->user()->tipo_usuario === 'Estudante') disabled @endif>
+                                                        @if (auth()->user()->tipo_usuario === 'Estudante')
+                                                            <option value="{{ auth()->user()->userable->id }}" selected>
+                                                                {{ auth()->user()->userable->codigo }} - {{ auth()->user()->userable->nome }} {{ auth()->user()->userable->apelido }}
+                                                            </option>
+                                                        @else
+                                                            <option value="">Selecione o Estudante</option> <!-- Adicionada opção "Select" -->
+                                                            @foreach ($estudantes as $estudante)
+                                                                <option value="{{ $estudante->id }}">{{ $estudante->codigo." - ".$estudante->nome." ".$estudante->apelido }}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -166,7 +172,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Comentário</th>
-                                            <th>Funcionário</th>
+                                            <th>Funcionario</th>
                                             <th>Data</th>
                                         </tr>
                                     </thead>
@@ -184,25 +190,28 @@
                                 </table>
                             </div>
                         </div>
-                        <form id="formAddComentario" action="{{ route('adicionar.comentario', $expediente->id) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="card card-primary">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="comentarios">Comentário</label>
-                                                <textarea class="form-control" id="comentarios" name="comentarios"></textarea>
+                        @if (auth()->user()->tipo_usuario === 'Funcionario')
+                            <form id="formAddComentario" action="{{ route('adicionar.comentario', $expediente->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="card card-primary">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="comentarios">Comentário</label>
+                                                    <textarea class="form-control" id="comentarios" name="comentarios"></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card-body">
+                                        <button type="submit" class="btn btn-success">Adicionar Comentário</button>
+                                        <button type="submit" formaction="{{ route('avancar.expediente', $expediente->id) }}" class="btn btn-info" id="btnAvancarExpediente">Avançar Expediente</button>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <button type="submit" class="btn btn-success">Adicionar Comentário</button>
-                                    <button type="submit" formaction="{{ route('avancar.expediente', $expediente->id) }}" class="btn btn-info" id="btnAvancarExpediente">Avançar Expediente</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        @endif
+
                     </div>
                   </div>
                   </div>
