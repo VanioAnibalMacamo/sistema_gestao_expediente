@@ -11,6 +11,11 @@
     @if (session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @stop
 
 @section('content')
@@ -85,6 +90,31 @@
                         </div>
                     </div>
                 </div>
+               <div class="row">
+            @if(auth()->user()->userable instanceof \App\Models\Funcionario)
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="formFileMultiple" class="form-label">Documento(s)</label>
+                            <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="mb-3">
+                        <div>
+                                <p>Nome do Documento: meu_documento.pdf</p>
+                                <a href="caminho_do_seu_documento.pdf" download class="btn btn-primary">
+                                    <i class="fas fa-download"></i> Baixar Documento
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
             </div>
             <div class="card-footer d-flex justify-content-center">
                 <input type="submit" class="btn btn-primary mr-2" value="Actualizar">
