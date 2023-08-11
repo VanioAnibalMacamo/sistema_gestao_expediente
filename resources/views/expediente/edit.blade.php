@@ -111,6 +111,33 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="cronograma_id">Cronograma</label> <br>
+                                                    @if ($expediente->estagioProcesso && $expediente->data_inicio_estagio)
+                                                    @php
+                                                        $tempoEstimado = $expediente->estagioProcesso->tempo_estimado_conclusao;
+                                                        $dataInicioEstagio = \Carbon\Carbon::parse($expediente->data_inicio_estagio);
+                                                        $dataPrevista = $dataInicioEstagio->copy()->addDays($tempoEstimado);
+
+                                                        $hoje = now();
+                                                        $diasRestantes = $hoje->diffInDays($dataPrevista, false);
+                                                    @endphp
+
+                                                    @if ($diasRestantes < 0)
+                                                        <span class="badge badge-danger">Atrasado ({{ abs($diasRestantes) }} dias)</span>
+                                                    @else
+                                                        <span class="badge badge-success">Dentro do prazo ({{ $diasRestantes }} dias restantes)</span>
+                                                    @endif
+                                                @elseif ($expediente->estagioProcesso)
+                                                    <span class="badge badge-danger">Data de Início de Estágio não definida</span>
+                                                @else
+                                                    <span class="badge badge-danger">Sem Estágio de Processo</span>
+                                                @endif
+                                                </div>
+                                            </div>
+                                        </div>
                                     <div class="row">
                                             @if(auth()->user()->userable instanceof \App\Models\Funcionario)
                                                 <div class="col-md-6">
