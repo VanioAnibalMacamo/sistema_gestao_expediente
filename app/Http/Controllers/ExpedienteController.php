@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use ZipArchive;
 
+
 class ExpedienteController extends Controller
 {
 
@@ -62,6 +63,7 @@ class ExpedienteController extends Controller
         $expediente->data_submissao = $request->data_submissao;
         $expediente->tipo_expediente_id = $request->tipo_expediente_id;
         $expediente->estudante_id = $request->estudante_id;
+        $expediente->data_inicio_estagio = now(); // Atribui a data e hora atuais
         // Encontre o Estágio de Processo sem pai
         $tipoExpediente = TipoExpediente::find($request->tipo_expediente_id);
         $estagioSemPai = $tipoExpediente->estagiosProcesso->whereNull('parent_id')->first();
@@ -139,11 +141,11 @@ class ExpedienteController extends Controller
             }
 
 
-        return redirect('/expedienteIndex')->with('mensagem', 'Expediente actualizado com sucesso!');
-    }else {
-        return redirect()->back()->with('error', 'Você não tem permissão para editar este Funcionário.');
+            return redirect('/expedienteIndex')->with('mensagem', 'Expediente actualizado com sucesso!');
+        }else {
+                return redirect()->back()->with('error', 'Você não tem permissão para editar este Funcionário.');
+        }
     }
-}
 
     public function visualizar_view($id)
     {
@@ -195,7 +197,6 @@ class ExpedienteController extends Controller
 
         public function avancarExpediente($id)
         {
-
             $expediente = Expediente::findOrFail($id);
             $user = Auth::user();
 
@@ -219,6 +220,7 @@ class ExpedienteController extends Controller
                     }
 
                     $expediente->estagio_processo_id = $proximoEstagioId;
+                    $expediente->data_inicio_estagio = now(); // Atribui a data e hora atuais
                     $expediente->save();
                     return redirect('/expedienteIndex')->with('mensagem', 'Expediente avançado com sucesso!');
                 } else {

@@ -62,7 +62,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="data_submissao">Data de Submissão</label>
-                                                    <input type="date" class="form-control" id="data_submissao" name="data_submissao" value="{{ $expediente->data_submissao }}">
+                                                    <input type="date" class="form-control" id="data_submissao" name="data_submissao" value="{{ $expediente->data_submissao }}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

@@ -31,7 +31,8 @@
                         <th>Estudante</th>
                         <th>Tipo Expediente </th>
                         <th>Estágio do Processo</th>
-                        <th>Ações</th> <!-- Nova coluna para as ações -->
+                        <th>Cronograma</th>
+                        <th style="width: 140px">Ações</th> <!-- Nova coluna para as ações -->
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,30 @@
                                     <span class="badge badge-danger">Sem Estágio de Processo</span>
                                 @endif
                             </td>
+                            <td>
+                                @if ($expediente->estagioProcesso && $expediente->data_inicio_estagio)
+                                    @php
+                                        $tempoEstimado = $expediente->estagioProcesso->tempo_estimado_conclusao;
+                                        $dataInicioEstagio = \Carbon\Carbon::parse($expediente->data_inicio_estagio);
+                                        $dataPrevista = $dataInicioEstagio->copy()->addDays($tempoEstimado);
+
+                                        $hoje = now();
+                                        $diasRestantes = $hoje->diffInDays($dataPrevista, false);
+                                    @endphp
+
+                                    @if ($diasRestantes < 0)
+                                        <span class="badge badge-danger">Atrasado ({{ abs($diasRestantes) }} dias)</span>
+                                    @else
+                                        <span class="badge badge-success">Dentro do prazo ({{ $diasRestantes }} dias restantes)</span>
+                                    @endif
+                                @elseif ($expediente->estagioProcesso)
+                                    <span class="badge badge-danger">Data de Início de Estágio não definida</span>
+                                @else
+                                    <span class="badge badge-danger">Sem Estágio de Processo</span>
+                                @endif
+                            </td>
+
+
 
                             <td>
                                 <!-- Actions -->

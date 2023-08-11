@@ -9,7 +9,7 @@ class Expediente extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'descricao', 'data_submissao'];
+    protected $fillable = ['nome', 'descricao', 'data_submissao', 'data_inicio_estagio'];
 
     public function tipoExpediente()
     {

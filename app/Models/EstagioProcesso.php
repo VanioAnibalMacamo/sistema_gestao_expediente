@@ -9,7 +9,8 @@ class EstagioProcesso extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'descricao', 'tempo_estimado_conclusao'];
+    protected $fillable = ['nome', 'descricao', 'data_submissao', 'data_inicio_estagio'];
+
 
     public function expedientes()
     {

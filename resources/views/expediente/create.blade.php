@@ -36,7 +36,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="data_submissao">Data de Submissão</label>
-                            <input type="date" class="form-control" id="data_submissao" name="data_submissao">
+                            <input type="date" class="form-control" id="data_submissao" name="data_submissao" value="{{ now()->format('Y-m-d') }}" max="{{ now()->format('Y-m-d') }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-6">
