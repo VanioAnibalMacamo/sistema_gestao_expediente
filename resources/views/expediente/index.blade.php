@@ -21,6 +21,11 @@
 
     <div class="card">
         <div class="card-body p-0">
+            <div class="row mt-3 mb-3">
+                <div class="col-md-6 offset-md-6">
+                    <input type="text" id="searchInput" class="form-control mr-2" placeholder="Pesquisar">
+                </div>
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -131,4 +136,25 @@
             });
         }
     </script>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const tableRows = document.querySelectorAll('.table tbody tr');
+
+        searchInput.addEventListener('input', function () {
+            const searchText = searchInput.value.toLowerCase();
+
+            tableRows.forEach(row => {
+                const nameColumn = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const descriptionColumn = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                const studentColumn = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+
+                if (nameColumn.includes(searchText) || descriptionColumn.includes(searchText) || studentColumn.includes(searchText)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
 @stop
