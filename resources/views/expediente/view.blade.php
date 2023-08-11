@@ -65,25 +65,35 @@
                     <div class="form-group">
                         <label for="cronograma_id">Cronograma</label> <br>
                         @if ($expediente->estagioProcesso && $expediente->data_inicio_estagio)
-                        @php
-                            $tempoEstimado = $expediente->estagioProcesso->tempo_estimado_conclusao;
-                            $dataInicioEstagio = \Carbon\Carbon::parse($expediente->data_inicio_estagio);
-                            $dataPrevista = $dataInicioEstagio->copy()->addDays($tempoEstimado);
+                                    @php
+                                        $tempoEstimado = $expediente->estagioProcesso->tempo_estimado_conclusao;
+                                        $dataInicioEstagio = \Carbon\Carbon::parse($expediente->data_inicio_estagio);
 
-                            $hoje = now();
-                            $diasRestantes = $hoje->diffInDays($dataPrevista, false);
-                        @endphp
+                                        // Ajustar o cálculo dos dias úteis restantes
+                                        $dataPrevista = $dataInicioEstagio->copy();
+                                        $diasUteisRestantes = 0;
 
-                        @if ($diasRestantes < 0)
-                            <span class="badge badge-danger">Atrasado ({{ abs($diasRestantes) }} dias)</span>
-                        @else
-                            <span class="badge badge-success">Dentro do prazo ({{ $diasRestantes }} dias restantes)</span>
-                        @endif
-                    @elseif ($expediente->estagioProcesso)
-                        <span class="badge badge-danger">Data de Início de Estágio não definida</span>
-                    @else
-                        <span class="badge badge-danger">Sem Estágio de Processo</span>
-                    @endif
+                                        while ($diasUteisRestantes < $tempoEstimado) {
+                                            $dataPrevista->addDay();
+                                            if ($dataPrevista->isWeekday()) { // Verificar se o dia é um dia útil
+                                                $diasUteisRestantes++;
+                                            }
+                                        }
+
+                                        $hoje = now();
+                                        $diasAtrasados = $hoje->diffInDays($dataPrevista, false);
+                                    @endphp
+
+                                    @if ($diasAtrasados > 0)
+                                        <span class="badge badge-danger">Atrasado ({{ $diasAtrasados }} dias)</span>
+                                    @else
+                                        <span class="badge badge-success">Dentro do prazo ({{ $diasUteisRestantes }} dias úteis restantes)</span>
+                                    @endif
+                                @elseif ($expediente->estagioProcesso)
+                                    <span class="badge badge-danger">Data de Início de Estágio não definida</span>
+                                @else
+                                    <span class="badge badge-danger">Sem Estágio de Processo</span>
+                                @endif
                     </div>
                 </div>
             </div>
