@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FuncionarioDepartamentoCargoController;
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\EstudanteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,3 +157,5 @@ Route::get('/update_curso/{id}',[App\Http\Controllers\CursoController::class,'up
 route::post('/updateCurso/{id}',[App\Http\Controllers\CursoController::class,'update'])->middleware('can:update,App\Models\Curso');
 Route::get('/visualizar_curso/{id}',[App\Http\Controllers\CursoController::class,'visualizar_view'])->middleware('can:view,App\Models\Curso');
 Route::post('/visualizCursos/{id}',[App\Http\Controllers\CursoController::class,'visualizar'])->middleware('can:view,App\Models\Curso');
+
+Route::get('/enviar-email', [EstudanteController::class, 'enviarEmail'])->name('enviar.email');

@@ -10,6 +10,8 @@ use App\Models\Estudante;
 use App\Models\Funcionario;
 use App\Models\Departamento;
 use Illuminate\Support\Facades\Auth;
+use App\Models\NotificacaoEmail;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -81,7 +83,11 @@ class UserController extends Controller
             }
         }
 
-        // Salve o relacionamento userable
+        $assunto = 'Confirmação de Cadastro';
+        $mensagem = 'Caro,'.$user->name.' Confirmamos o seu Cadastro no SGE-ISARC';
+        $emailDestino = $user->email;
+
+        $this->enviarEmail($emailDestino, $assunto, $mensagem);
         $user->save();
 
         // Atribua funções ao usuário
@@ -140,53 +146,62 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (Auth::user()->can('update', User::class)) {
-        // Find the user by ID
-        $user = User::findOrFail($id);
+            if (Auth::user()->can('update', User::class)) {
+            // Find the user by ID
+            $user = User::findOrFail($id);
 
-        // Validate the request data
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'estado' => 'required|string',
-            'tipo_usuario' => 'required|string',
-            // Add other validation rules here...
-        ]);
+            // Validate the request data
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,'.$user->id,
+                'estado' => 'required|string',
+                'tipo_usuario' => 'required|string',
+                // Add other validation rules here...
+            ]);
 
-        // Update the user data
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->estado = $request->input('estado');
-        $user->tipo_usuario = $request->input('tipo_usuario');
+            // Update the user data
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->estado = $request->input('estado');
+            $user->tipo_usuario = $request->input('tipo_usuario');
 
-        // Save the user
-        $user->save();
+            // Save the user
+            $user->save();
 
-        // Update userable data if applicable (Estudante or Funcionario)
-        if ($user->tipo_usuario === 'Estudante') {
-            $estudante = Estudante::find($request->input('estudante_id'));
-            if ($estudante) {
-                $user->userable()->associate($estudante);
-                $user->save();
+            // Update userable data if applicable (Estudante or Funcionario)
+            if ($user->tipo_usuario === 'Estudante') {
+                $estudante = Estudante::find($request->input('estudante_id'));
+                if ($estudante) {
+                    $user->userable()->associate($estudante);
+                    $user->save();
+                }
+            } elseif ($user->tipo_usuario === 'Funcionario') {
+                $funcionario = Funcionario::find($request->input('funcionario_id'));
+                if ($funcionario) {
+                    $user->userable()->associate($funcionario);
+                    $user->save();
+                }
             }
-        } elseif ($user->tipo_usuario === 'Funcionario') {
-            $funcionario = Funcionario::find($request->input('funcionario_id'));
-            if ($funcionario) {
-                $user->userable()->associate($funcionario);
-                $user->save();
+
+            // Update roles if applicable
+            if ($request->has('roles')) {
+                $user->roles()->sync($request->input('roles'));
+            } else {
+                $user->roles()->detach();
             }
-        }
 
-        // Update roles if applicable
-        if ($request->has('roles')) {
-            $user->roles()->sync($request->input('roles'));
-        } else {
-            $user->roles()->detach();
+            // Redirect back to the users list with a success message
+            return redirect()->route('users')->with('success', 'User updated successfully!');
+        }else {
+            return redirect()->back()->with('error', 'Você não tem permissão para editar este User.');
         }
+    }
 
-        // Redirect back to the users list with a success message
-        return redirect()->route('users')->with('success', 'User updated successfully!');
-    }else {
-        return redirect()->back()->with('error', 'Você não tem permissão para editar este User.');
-    }}
+    public function enviarEmail($emailDestino,$assunto, $mensagem)
+    {
+        try {
+            Mail::to($emailDestino)->send(new NotificacaoEmail($assunto, $mensagem));
+        } catch (\Exception $e) {
+        }
+    }
 }
