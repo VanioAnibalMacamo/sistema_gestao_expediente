@@ -12,6 +12,8 @@ use App\Models\Departamento;
 use Illuminate\Support\Facades\Auth;
 use App\Models\NotificacaoEmail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -54,14 +56,19 @@ class UserController extends Controller
         ]);
 
 
-       // Crie o usuário
-        $user = User::create([
+        $user = new User([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'tipo_usuario' => $request->input('tipo_usuario'), // Adicione esta linha para definir o tipo de usuário
+            'tipo_usuario' => $request->input('tipo_usuario'),
             'estado' => $request->input('estado'),
-            'password' => bcrypt($request->input('name')), // Criptografe a senha fornecida pelo usuário
         ]);
+
+        $userName = $user->name;
+        $parteAleatoria = Str::random(6);
+        $resultado = substr($userName, 0, 2) . $parteAleatoria;
+
+        $user->password = Hash::make($resultado);
+        $user->save();
 
         // Obtenha o tipo de usuário selecionado (Estudante ou Funcionário)
         $tipoUsuario = $request->input('tipo_usuario');
@@ -84,7 +91,11 @@ class UserController extends Controller
         }
 
         $assunto = 'Confirmação de Cadastro';
-        $mensagem = 'Caro,'.$user->name.' Confirmamos o seu Cadastro no SGE-ISARC';
+        $mensagem = "Caro {$user->name},\n\n" .
+                    "Confirmamos o seu Cadastro no SGE-ISARC. Seu username é: {$user->name}.\n" .
+                    "e o Password: {$resultado}\n" .
+                    "Pedimos que troque rapidamente o seu password para o password desejado.";
+
         $emailDestino = $user->email;
 
         $this->enviarEmail($emailDestino, $assunto, $mensagem);
