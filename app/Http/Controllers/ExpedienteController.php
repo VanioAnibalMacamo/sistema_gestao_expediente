@@ -204,13 +204,13 @@ class ExpedienteController extends Controller
                 return redirect()->back()->with('error', 'Você não tem permissão para avançar o expediente.');
             }
 
-            $department = $user->funcionario->departamentos->first();
+            $departmento = $user->funcionario->departamentos->first();
 
-            if (!$department) {
+            if (!$departmento) {
                 return redirect()->back()->with('error', 'Este funcionário ainda não foi alocado a um departamento.');
             }
 
-            if (!$expediente->tipoExpediente || $expediente->tipoExpediente->departamento_id !== $department->id) {
+            if (!$expediente->tipoExpediente || $expediente->tipoExpediente->departamento_id !== $departmento->id) {
                 return redirect()->back()->with('error', 'Você não tem permissão para avançar este expediente.');
             }
 
