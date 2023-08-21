@@ -51,7 +51,9 @@
                                     <td>-</td>
                                     <td>{{ $user->userable->alocacao->departamento->nome }}</td>
                                 @else
-                                    <td>Funcionário sem alocação</td>
+                                    <td>
+                                        <span class="badge badge-danger">Funcionário sem alocação</span>
+                                    </td>
                                     <td>-</td>
                                 @endif
                             @else
