@@ -28,10 +28,7 @@
                         </div>
                     </div>
                     
-                    
-
-                   
-                   
+                                      
                     <div class="card-footer">
                         <input type="submit" class="btn btn-primary" value='Salvar'>
                         <a  href="{{ url('/cursoIndex') }}" type="button" class="btn btn-warning">Cancelar</a>
