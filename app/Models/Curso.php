@@ -14,6 +14,12 @@ protected $fillable=['nome','sigla'];
 public function estudante()
 {
     return $this->belongsTo(Estudante::class);
+
+}
+
+public function user()
+{
+    return $this->belongsTo(User::class);
 }
 
 }

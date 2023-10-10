@@ -43,8 +43,9 @@
                                     <span class="badge badge-success">{{ $role->name }}</span>
                                 @endforeach
                             </td>
-                            @if ($user->userable_type === 'App\Models\Estudante' && $user->userable->curso)
-                                <td>{{ $user->userable->curso->nome }}</td>
+                            @if ($user->userable_type === 'App\Models\Estudante' && (!$user->userable_type && $user->userable->curso))
+                                 <td>{{ $user->userable ? $user->userable->curso->nome : 'Nenhum curso associado' }}</td>
+
                                 <td>-</td>
                             @elseif ($user->userable_type === 'App\Models\Funcionario')
                                 @if ($user->userable->alocacao && $user->userable->alocacao->departamento)
