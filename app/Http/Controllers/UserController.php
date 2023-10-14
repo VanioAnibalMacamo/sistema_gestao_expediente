@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Estudante;
+use App\Models\Curso;
 use App\Models\Funcionario;
 use App\Models\Departamento;
 use Illuminate\Support\Facades\Auth;
@@ -170,6 +171,7 @@ class UserController extends Controller
                 // Add other validation rules here...
             ]);
 
+            $estado = $request->input('estado');
             // Update the user data
             $user->name = $request->input('name');
             $user->email = $request->input('email');
@@ -201,12 +203,63 @@ class UserController extends Controller
                 $user->roles()->detach();
             }
 
+            if ($estado == 'Pendente'){
+
+                $assunto = 'Confirmação de Aprovação';
+                $mensagem = "Caro {$user->name},\n\n" .
+                            "Confirmamos a sua aprovação no SGE-ISARC. Pode fazer login através das suas credenciais";
+
+                $emailDestino = $user->email;
+                $this->enviarEmail($emailDestino, $assunto, $mensagem);
+            }
             // Redirect back to the users list with a success message
             return redirect()->route('users')->with('success', 'User updated successfully!');
         }else {
             return redirect()->back()->with('error', 'Você não tem permissão para editar este User.');
         }
     }
+
+    public function registerEstudante(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed', // Certifique-se de que a senha e a confirmação da senha coincidam
+        ]);
+
+        $estudante = new Estudante();
+        $estudante->nome = $request->nome;
+        $estudante->apelido = $request->apelido;
+        $estudante->curso_id = $request->curso_id;
+        $estudante->codigo = $request->codigo;
+        $estudante->contacto = $request->contacto;
+        $estudante->morada = $request->morada;
+
+        $estudante->save();
+
+        // Crie um novo usuário com os dados do formulário
+        $user = new User([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'estado' => 'Pendente',
+            'tipo_usuario' => 'Estudante', // Defina o tipo de usuário como Estudante
+        ]);
+
+        $user->password = Hash::make($request->input('password'));
+
+        $estudante = Estudante::find($estudante->id);
+        $user->userable()->associate($estudante);
+        $user->save();
+
+
+        session()->flash('success', 'Registro bem-sucedido!, Aguarde a aprovação do Administrador do Sistema,
+                                     Vai Receber uma notificação por email assim que aprovado.');
+
+        // Redirecione o usuário de volta à página de registro
+        return redirect('/');
+    }
+
 
     public function enviarEmail($emailDestino,$assunto, $mensagem)
     {
@@ -215,4 +268,6 @@ class UserController extends Controller
         } catch (\Exception $e) {
         }
     }
+
+
 }

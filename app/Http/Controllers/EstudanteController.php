@@ -98,7 +98,7 @@ public function saveEstudante(Request $request)
 
         $estudante->save();
 
-        return redirect()->route('estudanteIndex')->with('mensagem', 'estudate Cadastrado com sucesso!');
+        return redirect()->route('estudanteIndex')->with('mensagem', 'estudante Cadastrado com sucesso!');
 
 }else {
     // O usuário não tem permissão, exibe uma mensagem de erro ou redireciona para outra página

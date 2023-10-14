@@ -66,6 +66,8 @@
                                     <span class="badge badge-primary">{{ $user->estado }}</span>
                                 @elseif ($user->estado === 'Inactivo')
                                     <span class="badge badge-danger">{{ $user->estado }}</span>
+                                @elseif ($user->estado === 'Pendente')
+                                     <span class="badge badge-warning">{{ $user->estado }}</span>
                                 @endif
                             </td>
                             <td>

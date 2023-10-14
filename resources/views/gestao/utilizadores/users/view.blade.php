@@ -41,6 +41,12 @@
                             Inactivo
                         </label>
                     </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="estado" value="Pendente" id="estadoPendente" {{ $user->estado === 'Pendente' ? 'checked' : '' }} @disabled(true)>
+                        <label class="form-check-label" for="estadoPendente">
+                            Pendente
+                        </label>
+                    </div>
                 </div>
 
                 <div class="form-group border border-primary rounded p-2 col-md-6">
