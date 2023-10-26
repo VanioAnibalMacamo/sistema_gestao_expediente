@@ -171,7 +171,7 @@ class UserController extends Controller
                 // Add other validation rules here...
             ]);
 
-            $estado = $request->input('estado');
+            $estado = $user->estado;
             // Update the user data
             $user->name = $request->input('name');
             $user->email = $request->input('email');
@@ -203,7 +203,7 @@ class UserController extends Controller
                 $user->roles()->detach();
             }
 
-            if ($estado == 'Pendente'){
+            if ($estado === 'Pendente'){
 
                 $assunto = 'Confirmação de Aprovação';
                 $mensagem = "Caro {$user->name},\n\n" .
