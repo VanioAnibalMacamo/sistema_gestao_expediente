@@ -77,7 +77,7 @@ class ExpedienteController extends Controller
         return redirect('/expedienteIndex')->with('mensagem', 'Expediente salvo com sucesso.');
         }else {
             // O usuário não tem permissão, exibe uma mensagem de erro ou redireciona para outra página
-            return redirect()->back()->with('error', 'Você não tem permissão para criar um novo Funcionário.');
+            return redirect('/expedienteIndex')->with('error', 'Você não tem permissão para criar um novo Expediente.');
         }
     }
 
