@@ -84,8 +84,19 @@ class ExpedienteController extends Controller
     public function delete($id)
     {
         if (Auth::user()->can('delete', Expediente::class)) {
-        $expediente = Expediente::find($id);
-        $expediente->delete();
+            $expediente = Expediente::find($id);
+
+            if ($expediente) {
+                // Exclui todos os documentos relacionados ao expediente
+                $expediente->documentos->each(function ($documento) {
+                    $documento->delete();
+                });
+
+                $expediente->deleteExpedienteAndComentarios();
+
+            
+                $expediente->delete();
+            }
 
         return redirect()->route('expedienteIndex')->with('successDelete', 'Expediente Excluido com Sucesso!');
     }else {

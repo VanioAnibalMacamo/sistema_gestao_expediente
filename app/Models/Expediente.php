@@ -32,6 +32,12 @@ class Expediente extends Model
             ->withPivot('comentario', 'data_comentario');
     }
 
+    public function deleteExpedienteAndComentarios()
+    {
+        $this->funcionarios()->detach(); // Remove todos os registros na tabela intermediária
+        $this->delete(); // Remove o expediente
+    }
+
     public function documentos()
     {
         return $this->hasMany(Documento::class);
